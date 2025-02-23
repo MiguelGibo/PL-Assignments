@@ -107,8 +107,15 @@ def p_empty(p):
     'empty :'
     p[0] = None
 
+def p_stm_NUMBER(p):
+   'stm : NUMBER'
+   p[0] = ('number', p[1])
+
 def p_error(p):
-    pass
+  if p:
+    print(f"Syntax error in input: {p.lineno}")
+  else:
+    print(f"Syntax error in input: none")
 #
 # END PARSING DEFINITION
 

@@ -23,7 +23,6 @@ Unused terminals:
     LPAREN
     MINUS
     NIL
-    NUMBER
     OR
     PLUS
     RBRACE
@@ -38,6 +37,7 @@ Grammar
 
 Rule 0     S' -> empty
 Rule 1     empty -> <empty>
+Rule 2     stm -> NUMBER
 
 Terminals, with rules where they appear
 
@@ -62,7 +62,7 @@ LET                  :
 LPAREN               : 
 MINUS                : 
 NIL                  : 
-NUMBER               : 
+NUMBER               : 2
 OR                   : 
 PLUS                 : 
 RBRACE               : 
@@ -77,6 +77,7 @@ error                :
 Nonterminals, with rules where they appear
 
 empty                : 0
+stm                  : 
 
 Parsing method: LALR
 

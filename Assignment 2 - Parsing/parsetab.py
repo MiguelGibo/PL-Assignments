@@ -6,7 +6,7 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AND ASSIGN COMMA DIVIDE DOT ELSE END EQUAL EXEC FALSE FUNC GREATERTHAN IDENTIFIER IF IN LBRACE LESSTHAN LET LPAREN MINUS NIL NUMBER OR PLUS RBRACE RPAREN STRING THEN TIMES TRUE VALempty :'
+_lr_signature = 'AND ASSIGN COMMA DIVIDE DOT ELSE END EQUAL EXEC FALSE FUNC GREATERTHAN IDENTIFIER IF IN LBRACE LESSTHAN LET LPAREN MINUS NIL NUMBER OR PLUS RBRACE RPAREN STRING THEN TIMES TRUE VALempty :stm : NUMBER'
     
 _lr_action_items = {'$end':([0,1,],[-1,0,]),}
 
@@ -28,4 +28,5 @@ del _lr_goto_items
 _lr_productions = [
   ("S' -> empty","S'",1,None,None,None),
   ('empty -> <empty>','empty',0,'p_empty','A2_Template.py',107),
+  ('stm -> NUMBER','stm',1,'p_stm_NUMBER','A2_Template.py',111),
 ]
