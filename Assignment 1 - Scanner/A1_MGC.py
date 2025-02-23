@@ -95,7 +95,8 @@ lexer = lex.lex()
 
 #Testing Lexical Analysis
 
-textFile = open('Program_Test.txt', 'r')
+# textFile = open('Program_Test.txt', 'r')
+textFile = open('Assignment 2 - Parsing/Program_Test.txt', 'r')
 
 data = textFile.read()
 
