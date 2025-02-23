@@ -220,7 +220,7 @@ def p_stm_if(p):
    p[0] = ('if_stm', p[2], p[4], p[6])
 
 def p_stm_let(p):
-   "stm : LET facts in stm END"
+   "stm : LET facts IN stm END"
    p[0] = ('let', p[2], p[4])
  
 # exec_line -> EXEC stm
