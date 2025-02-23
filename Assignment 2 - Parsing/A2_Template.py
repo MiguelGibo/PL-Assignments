@@ -122,7 +122,13 @@ def p_stm_binop(p):
    """stm : stm PLUS stm
           | stm MINUS stm
           | stm TIMES stm
-          | stm DIVIDE stm"""
+          | stm DIVIDE stm
+          | stm DOT stm 
+          | stm LESSTHAN stm 
+          | stm GREATERTHAN stm 
+          | stm EQUAL stm 
+          | stm AND stm 
+          | stm OR stm"""
    p[0] = ('binop', p[2], p[1], p[0])
 
 def p_stm_string(p):
