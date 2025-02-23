@@ -10,7 +10,6 @@ Unused terminals:
     END
     EQUAL
     EXEC
-    FALSE
     FUNC
     GREATERTHAN
     IDENTIFIER
@@ -20,13 +19,11 @@ Unused terminals:
     LESSTHAN
     LET
     LPAREN
-    NIL
     OR
     RBRACE
     RPAREN
     STRING
     THEN
-    TRUE
     UMINUS
     VAL
 
@@ -39,6 +36,9 @@ Rule 3     stm -> stm PLUS stm
 Rule 4     stm -> stm MINUS stm
 Rule 5     stm -> stm TIMES stm
 Rule 6     stm -> stm DIVIDE stm
+Rule 7     stm -> TRUE
+Rule 8     stm -> FALSE
+Rule 9     stm -> NIL
 
 Terminals, with rules where they appear
 
@@ -51,7 +51,7 @@ ELSE                 :
 END                  : 
 EQUAL                : 
 EXEC                 : 
-FALSE                : 
+FALSE                : 8
 FUNC                 : 
 GREATERTHAN          : 
 IDENTIFIER           : 
@@ -62,7 +62,7 @@ LESSTHAN             :
 LET                  : 
 LPAREN               : 
 MINUS                : 4
-NIL                  : 
+NIL                  : 9
 NUMBER               : 2
 OR                   : 
 PLUS                 : 3
@@ -71,7 +71,7 @@ RPAREN               :
 STRING               : 
 THEN                 : 
 TIMES                : 5
-TRUE                 : 
+TRUE                 : 7
 UMINUS               : 
 VAL                  : 
 error                : 
