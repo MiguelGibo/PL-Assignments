@@ -175,6 +175,11 @@ def p_stm_group(p):
 def p_stm_if(p):
    "stm : IF stm THEN stm ELSE stm END"
    p[0] = ('if_stm', p[2], p[4], p[6])
+
+def p_stm_let(p):
+   "stm : LET facts in stm END"
+   p[0] = ('let', p[2], p[4])
+   
    
 def p_error(p):
   if p:

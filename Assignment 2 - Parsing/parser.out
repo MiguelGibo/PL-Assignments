@@ -7,7 +7,6 @@ Unused terminals:
     FUNC
     IN
     LBRACE
-    LET
     RBRACE
     UMINUS
     VAL
@@ -39,7 +38,8 @@ Rule 21    stm -> NIL
 Rule 22    stm -> IDENTIFIER
 Rule 23    stm -> LPAREN stm RPAREN
 Rule 24    stm -> IF stm THEN stm ELSE stm END
-Rule 25    exec_line -> stm
+Rule 25    stm -> LET facts in stm END
+Rule 26    exec_line -> stm
 
 Terminals, with rules where they appear
 
@@ -49,7 +49,7 @@ COMMA                :
 DIVIDE               : 10
 DOT                  : 11
 ELSE                 : 24
-END                  : 24
+END                  : 24 25
 EQUAL                : 14
 EXEC                 : 
 FALSE                : 20
@@ -60,7 +60,7 @@ IF                   : 24
 IN                   : 
 LBRACE               : 
 LESSTHAN             : 12
-LET                  : 
+LET                  : 25
 LPAREN               : 23
 MINUS                : 8 17
 NIL                  : 21
@@ -81,8 +81,9 @@ Nonterminals, with rules where they appear
 
 empty                : 4
 exec_line            : 1
-facts                : 1 3
+facts                : 1 3 25
 func_def             : 2
 global_facts         : 0
-stm                  : 7 7 8 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15 16 16 17 23 24 24 24 25
+in                   : 25
+stm                  : 7 7 8 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15 16 16 17 23 24 24 24 25 26
 
