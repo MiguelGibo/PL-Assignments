@@ -188,7 +188,7 @@ def p_stm_binop(p):
         | stm EQUAL stm 
         | stm AND stm 
         | stm OR stm"""
-  p[0] = ('binop', p[2], p[1], p[0])
+  p[0] = ('binop', p[2], p[1], p[3])
 
 def p_stm_uminus(p):
   "stm : MINUS stm %prec UMINUS"
