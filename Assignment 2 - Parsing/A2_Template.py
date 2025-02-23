@@ -163,6 +163,10 @@ def p_stm_bool(p):
 def p_stm_nil(p):
   "stm : NIL"
   p[0] = ('nil', p[1])
+
+def p_stm_identifier(p):
+   "stm : IDENTIFIER"
+   p[0] = ("identifier", p[1])
    
 def p_error(p):
   if p:

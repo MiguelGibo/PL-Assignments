@@ -7,7 +7,6 @@ Unused terminals:
     END
     EXEC
     FUNC
-    IDENTIFIER
     IF
     IN
     LBRACE
@@ -43,7 +42,8 @@ Rule 18    stm -> STRING
 Rule 19    stm -> TRUE
 Rule 20    stm -> FALSE
 Rule 21    stm -> NIL
-Rule 22    exec_line -> stm
+Rule 22    stm -> IDENTIFIER
+Rule 23    exec_line -> stm
 
 Terminals, with rules where they appear
 
@@ -59,7 +59,7 @@ EXEC                 :
 FALSE                : 20
 FUNC                 : 
 GREATERTHAN          : 13
-IDENTIFIER           : 
+IDENTIFIER           : 22
 IF                   : 
 IN                   : 
 LBRACE               : 
@@ -88,5 +88,5 @@ exec_line            : 1
 facts                : 1 3
 func_def             : 2
 global_facts         : 0
-stm                  : 7 7 8 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15 16 16 17 22
+stm                  : 7 7 8 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15 16 16 17 23
 
