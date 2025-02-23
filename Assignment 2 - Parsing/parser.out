@@ -11,9 +11,7 @@ Unused terminals:
     IN
     LBRACE
     LET
-    LPAREN
     RBRACE
-    RPAREN
     THEN
     UMINUS
     VAL
@@ -43,7 +41,8 @@ Rule 19    stm -> TRUE
 Rule 20    stm -> FALSE
 Rule 21    stm -> NIL
 Rule 22    stm -> IDENTIFIER
-Rule 23    exec_line -> stm
+Rule 23    stm -> LPAREN stm RPAREN
+Rule 24    exec_line -> stm
 
 Terminals, with rules where they appear
 
@@ -65,14 +64,14 @@ IN                   :
 LBRACE               : 
 LESSTHAN             : 12
 LET                  : 
-LPAREN               : 
+LPAREN               : 23
 MINUS                : 8 17
 NIL                  : 21
 NUMBER               : 6
 OR                   : 16
 PLUS                 : 7
 RBRACE               : 
-RPAREN               : 
+RPAREN               : 23
 STRING               : 18
 THEN                 : 
 TIMES                : 9
@@ -88,5 +87,5 @@ exec_line            : 1
 facts                : 1 3
 func_def             : 2
 global_facts         : 0
-stm                  : 7 7 8 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15 16 16 17 23
+stm                  : 7 7 8 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15 16 16 17 23 24
 
