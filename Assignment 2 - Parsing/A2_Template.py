@@ -125,6 +125,10 @@ def p_stm_binop(p):
           | stm DIVIDE stm"""
    p[0] = ('binop', p[2], p[1], p[0])
 
+def p_stm_string(p):
+   "stm : STRING"
+   p[0] = ('string', p[1])
+
 def p_stm_bool(p):
    """stm : TRUE
           | FALSE"""
