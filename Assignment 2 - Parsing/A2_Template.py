@@ -104,55 +104,75 @@ t_OR = r'\|'
 
 # BEGIN PARSING DEFINITION
 #
+def p_global_facts(p):
+  "global_facts : facts exec_line"
+  p[0] = ("program", p[1], p[2])
+
+def p_facts_func(p):
+  "facts : func_def"
+  p[0] = [p[1], p[2]]
+
+def p_facts_assign(p):
+  "facts : ASSIGN facts"
+  p[0] = [p[1], p[2]]
+
+def p_facts_empty(p):
+   "facts : empty"
+   p[0] = []
+
 def p_empty(p):
-    'empty :'
-    p[0] = None
+  'empty :'
+  p[0] = None
 
 def p_stm_number(p):
-   'stm : NUMBER'
-   p[0] = ('number', p[1])
+  'stm : NUMBER'
+  p[0] = ('number', p[1])
 
 precedence = (
-   ('left', 'PLUS', 'MINUS'),
-   ('left', 'TIMES', 'DIVIDE'),
-   ('right', 'UMINUS'),
+  ('left', 'PLUS', 'MINUS'),
+  ('left', 'TIMES', 'DIVIDE'),
+  ('right', 'UMINUS'),
 )
 
 def p_stm_binop(p):
-   """stm : stm PLUS stm
-          | stm MINUS stm
-          | stm TIMES stm
-          | stm DIVIDE stm
-          | stm DOT stm 
-          | stm LESSTHAN stm 
-          | stm GREATERTHAN stm 
-          | stm EQUAL stm 
-          | stm AND stm 
-          | stm OR stm"""
-   p[0] = ('binop', p[2], p[1], p[0])
+  """stm : stm PLUS stm
+        | stm MINUS stm
+        | stm TIMES stm
+        | stm DIVIDE stm
+        | stm DOT stm 
+        | stm LESSTHAN stm 
+        | stm GREATERTHAN stm 
+        | stm EQUAL stm 
+        | stm AND stm 
+        | stm OR stm"""
+  p[0] = ('binop', p[2], p[1], p[0])
 
 def p_stm_uminus(p):
-   "stm : MINUS stm %prec UMINUS"
-   p[0] = ('uminus', p[2])
+  "stm : MINUS stm %prec UMINUS"
+  p[0] = ('uminus', p[2])
 
 def p_stm_string(p):
-   "stm : STRING"
-   p[0] = ('string', p[1])
+  "stm : STRING"
+  p[0] = ('string', p[1])
 
 def p_stm_bool(p):
-   """stm : TRUE
-          | FALSE"""
-   p[0] = ('bool', p[1])
+  """stm : TRUE
+        | FALSE"""
+  p[0] = ('bool', p[1])
  
 def p_stm_nil(p):
-   "stm : NIL"
-   p[0] = ('nil', p[1])
+  "stm : NIL"
+  p[0] = ('nil', p[1])
    
 def p_error(p):
   if p:
     print(f"Syntax error in input: {p.lineno}")
   else:
     print(f"Syntax error in input: none")
+
+def p_exec_line(p):
+   "exec_line : stm"
+   p[0] = ('exec', p[2])
 #
 # END PARSING DEFINITION
 
@@ -164,7 +184,7 @@ def main():
 
   # Build the lexer and parser
   lexer = lex.lex()
-  parser = yacc.yacc()
+  parser = yacc.yacc(start='global_facts')
 
   # Read the file
   # textFile = open('Program_Test.txt', 'r')
