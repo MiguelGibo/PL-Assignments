@@ -125,6 +125,11 @@ def p_stm_binop(p):
           | stm DIVIDE stm"""
    p[0] = ('binop', p[2], p[1], p[0])
 
+def p_stm_bool(p):
+   """"stm : TRUE | FALSE"""
+   p[0] = ('bool', p[1])
+
+
 def p_error(p):
   if p:
     print(f"Syntax error in input: {p.lineno}")
