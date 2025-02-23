@@ -107,9 +107,16 @@ def p_empty(p):
     'empty :'
     p[0] = None
 
-def p_stm_NUMBER(p):
+def p_stm_number(p):
    'stm : NUMBER'
    p[0] = ('number', p[1])
+
+def p_stm_binop(p):
+   """stm : stm PLUS stm
+          | stm MINUS stm
+          | stm TIMES stm
+          | stm DIVIDE stm"""
+   p[0] = ('binop', p[2], p[1], p[0])
 
 def p_error(p):
   if p:

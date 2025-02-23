@@ -6,7 +6,7 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AND ASSIGN COMMA DIVIDE DOT ELSE END EQUAL EXEC FALSE FUNC GREATERTHAN IDENTIFIER IF IN LBRACE LESSTHAN LET LPAREN MINUS NIL NUMBER OR PLUS RBRACE RPAREN STRING THEN TIMES TRUE VALempty :stm : NUMBER'
+_lr_signature = 'AND ASSIGN COMMA DIVIDE DOT ELSE END EQUAL EXEC FALSE FUNC GREATERTHAN IDENTIFIER IF IN LBRACE LESSTHAN LET LPAREN MINUS NIL NUMBER OR PLUS RBRACE RPAREN STRING THEN TIMES TRUE VALempty :stm : NUMBERstm : stm PLUS stm\n          | stm MINUS stm\n          | stm TIMES stm\n          | stm DIVIDE stm'
     
 _lr_action_items = {'$end':([0,1,],[-1,0,]),}
 
@@ -28,5 +28,9 @@ del _lr_goto_items
 _lr_productions = [
   ("S' -> empty","S'",1,None,None,None),
   ('empty -> <empty>','empty',0,'p_empty','A2_Template.py',107),
-  ('stm -> NUMBER','stm',1,'p_stm_NUMBER','A2_Template.py',111),
+  ('stm -> NUMBER','stm',1,'p_stm_number','A2_Template.py',111),
+  ('stm -> stm PLUS stm','stm',3,'p_stm_binop','A2_Template.py',115),
+  ('stm -> stm MINUS stm','stm',3,'p_stm_binop','A2_Template.py',116),
+  ('stm -> stm TIMES stm','stm',3,'p_stm_binop','A2_Template.py',117),
+  ('stm -> stm DIVIDE stm','stm',3,'p_stm_binop','A2_Template.py',118),
 ]

@@ -5,7 +5,6 @@ Unused terminals:
     AND
     ASSIGN
     COMMA
-    DIVIDE
     DOT
     ELSE
     END
@@ -21,15 +20,12 @@ Unused terminals:
     LESSTHAN
     LET
     LPAREN
-    MINUS
     NIL
     OR
-    PLUS
     RBRACE
     RPAREN
     STRING
     THEN
-    TIMES
     TRUE
     VAL
 
@@ -38,13 +34,17 @@ Grammar
 Rule 0     S' -> empty
 Rule 1     empty -> <empty>
 Rule 2     stm -> NUMBER
+Rule 3     stm -> stm PLUS stm
+Rule 4     stm -> stm MINUS stm
+Rule 5     stm -> stm TIMES stm
+Rule 6     stm -> stm DIVIDE stm
 
 Terminals, with rules where they appear
 
 AND                  : 
 ASSIGN               : 
 COMMA                : 
-DIVIDE               : 
+DIVIDE               : 6
 DOT                  : 
 ELSE                 : 
 END                  : 
@@ -60,16 +60,16 @@ LBRACE               :
 LESSTHAN             : 
 LET                  : 
 LPAREN               : 
-MINUS                : 
+MINUS                : 4
 NIL                  : 
 NUMBER               : 2
 OR                   : 
-PLUS                 : 
+PLUS                 : 3
 RBRACE               : 
 RPAREN               : 
 STRING               : 
 THEN                 : 
-TIMES                : 
+TIMES                : 5
 TRUE                 : 
 VAL                  : 
 error                : 
@@ -77,7 +77,7 @@ error                :
 Nonterminals, with rules where they appear
 
 empty                : 0
-stm                  : 
+stm                  : 3 3 4 4 5 5 6 6
 
 Parsing method: LALR
 
