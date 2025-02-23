@@ -103,7 +103,12 @@ t_OR = r'\|'
 
 # BEGIN PARSING DEFINITION
 #
-#
+def p_empty(p):
+    'empty :'
+    p[0] = None
+
+def p_error(p):
+    pass
 #
 # END PARSING DEFINITION
 
@@ -118,7 +123,8 @@ def main():
   parser = yacc.yacc()
 
   # Read the file
-  textFile = open('Program_Test.txt', 'r')
+  # textFile = open('Program_Test.txt', 'r')
+  textFile = open('Assignment 2 - Parsing/Program_Test.txt', 'r')
   data = textFile.read()
 
   # Parse the file
