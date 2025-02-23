@@ -104,10 +104,15 @@ t_OR = r'\|'
 
 # BEGIN PARSING DEFINITION
 #
+
+# global_facts -> facts exec_line 
 def p_global_facts(p):
   "global_facts : facts exec_line"
   p[0] = ("program", p[1], p[2])
 
+# facts -> func_def facts 
+#  | assign   facts 
+#  | empty 
 def p_facts_func(p):
   "facts : func_def"
   p[0] = [p[1], p[2]]
@@ -120,10 +125,48 @@ def p_facts_empty(p):
    "facts : empty"
    p[0] = []
 
-def p_empty(p):
-  'empty :'
-  p[0] = None
+ 
+# func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
+# TO-DO
 
+# params -> ID_FUNC COMMA params 
+#  | ID COMMA params 
+#  | ID_FUNC 
+#  | ID
+def p_params(p):
+   "id"
+
+# assign -> VAL ID ASSIGN stm END
+# TO-DO
+
+# stm -> ID_FUNC LBRACE args RBRACE
+# TO-DO
+
+# args -> ID_FUNC COMMA args 
+#  | stm COMMA args 
+#  | ID_FUNC 
+#  | stm
+# TO-DO
+
+# stm -> stm PLUS stm  
+#  |stm MINUS stm 
+#  | stm TIMES stm 
+#  | stm DIVIDE stm 
+#  | stm DOT stm 
+#  | stm LESSTHAN stm 
+#  | stm GREATERTHAN stm 
+#  | stm EQUAL stm 
+#  | stm AND stm 
+#  | stm OR stm 
+#  |STRING 
+#  |NUMBER 
+#  |TRUE 
+#  |FALSE 
+#  |NIL 
+#  |ID 
+#  |LPAREN stm RPAREN 
+#  |IF stm THEN stm ELSE stm END 
+#  |LET facts IN stm END 
 def p_stm_number(p):
   'stm : NUMBER'
   p[0] = ('number', p[1])
@@ -179,17 +222,23 @@ def p_stm_if(p):
 def p_stm_let(p):
    "stm : LET facts in stm END"
    p[0] = ('let', p[2], p[4])
-   
-   
+ 
+# exec_line -> EXEC stm
+def p_exec_line(p):
+   "exec_line : stm"
+   p[0] = ('exec', p[2])
+
+# empty lines
+def p_empty(p):
+  'empty :'
+  p[0] = None
+
+# incorrect syntax
 def p_error(p):
   if p:
     print(f"Syntax error in input: {p.lineno}")
   else:
     print(f"Syntax error in input: none")
-
-def p_exec_line(p):
-   "exec_line : stm"
-   p[0] = ('exec', p[2])
 #
 # END PARSING DEFINITION
 
