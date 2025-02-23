@@ -131,6 +131,10 @@ def p_stm_binop(p):
           | stm OR stm"""
    p[0] = ('binop', p[2], p[1], p[0])
 
+def p_stm_uminus(p):
+   "stm : MINUS stm %prec UMINUS"
+   p[0] = ('uminus', p[2])
+
 def p_stm_string(p):
    "stm : STRING"
    p[0] = ('string', p[1])

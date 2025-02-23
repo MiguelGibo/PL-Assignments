@@ -6,7 +6,7 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDErightUMINUSAND ASSIGN COMMA DIVIDE DOT ELSE END EQUAL EXEC FALSE FUNC GREATERTHAN IDENTIFIER IF IN LBRACE LESSTHAN LET LPAREN MINUS NIL NUMBER OR PLUS RBRACE RPAREN STRING THEN TIMES TRUE UMINUS VALempty :stm : NUMBERstm : stm PLUS stm\n          | stm MINUS stm\n          | stm TIMES stm\n          | stm DIVIDE stmstm : STRINGstm : TRUE\n          | FALSEstm : NIL'
+_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDErightUMINUSAND ASSIGN COMMA DIVIDE DOT ELSE END EQUAL EXEC FALSE FUNC GREATERTHAN IDENTIFIER IF IN LBRACE LESSTHAN LET LPAREN MINUS NIL NUMBER OR PLUS RBRACE RPAREN STRING THEN TIMES TRUE UMINUS VALempty :stm : NUMBERstm : stm PLUS stm\n          | stm MINUS stm\n          | stm TIMES stm\n          | stm DIVIDE stm\n          | stm DOT stm \n          | stm LESSTHAN stm \n          | stm GREATERTHAN stm \n          | stm EQUAL stm \n          | stm AND stm \n          | stm OR stmstm : MINUS stm %prec UMINUSstm : STRINGstm : TRUE\n          | FALSEstm : NIL'
     
 _lr_action_items = {'$end':([0,1,],[-1,0,]),}
 
@@ -33,8 +33,15 @@ _lr_productions = [
   ('stm -> stm MINUS stm','stm',3,'p_stm_binop','A2_Template.py',123),
   ('stm -> stm TIMES stm','stm',3,'p_stm_binop','A2_Template.py',124),
   ('stm -> stm DIVIDE stm','stm',3,'p_stm_binop','A2_Template.py',125),
-  ('stm -> STRING','stm',1,'p_stm_string','A2_Template.py',129),
-  ('stm -> TRUE','stm',1,'p_stm_bool','A2_Template.py',133),
-  ('stm -> FALSE','stm',1,'p_stm_bool','A2_Template.py',134),
-  ('stm -> NIL','stm',1,'p_stm_nil','A2_Template.py',138),
+  ('stm -> stm DOT stm','stm',3,'p_stm_binop','A2_Template.py',126),
+  ('stm -> stm LESSTHAN stm','stm',3,'p_stm_binop','A2_Template.py',127),
+  ('stm -> stm GREATERTHAN stm','stm',3,'p_stm_binop','A2_Template.py',128),
+  ('stm -> stm EQUAL stm','stm',3,'p_stm_binop','A2_Template.py',129),
+  ('stm -> stm AND stm','stm',3,'p_stm_binop','A2_Template.py',130),
+  ('stm -> stm OR stm','stm',3,'p_stm_binop','A2_Template.py',131),
+  ('stm -> MINUS stm','stm',2,'p_stm_uminus','A2_Template.py',135),
+  ('stm -> STRING','stm',1,'p_stm_string','A2_Template.py',139),
+  ('stm -> TRUE','stm',1,'p_stm_bool','A2_Template.py',143),
+  ('stm -> FALSE','stm',1,'p_stm_bool','A2_Template.py',144),
+  ('stm -> NIL','stm',1,'p_stm_nil','A2_Template.py',148),
 ]
