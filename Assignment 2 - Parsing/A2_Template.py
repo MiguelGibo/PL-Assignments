@@ -2,16 +2,16 @@ import ply.lex as lex
 import ply.yacc as yacc
 
 # Import lexical analyzer from assignemt 1 - scanner
-import sys
-import os
-repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(os.path.join(repo_root, "Assignment 1 - Scanner"))
-import A1_MGC.py
+# import sys
+# import os
+# repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# sys.path.append(os.path.join(repo_root, "Assignment 1 - Scanner"))
+# import A1_MGC.py
 
 
 # BEGIN LEXICAL ANALYZER DEFINITION
 #
-#
+
 #
 # END LEXICAL ANALYZER DEFINITION
 
