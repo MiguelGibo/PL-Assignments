@@ -118,7 +118,7 @@ def p_facts_func(p):
   p[0] = [p[1]] + p[2]
 
 def p_facts_assign(p):
-  "facts : ASSIGN facts"
+  "facts : assign facts"
   p[0] = [p[1]] + p[2]
 
 def p_facts_empty(p):
