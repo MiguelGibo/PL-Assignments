@@ -50,6 +50,7 @@ tokens = [
     'DOT',          #the string .
     'AND',          #the string &
     'OR',           #the string |
+    'UMINUS',       #Fictitous token for unanry minus
 ] + list(reserved.values())     # Add reserved words to token list
 
 def t_IDENTIFIER(t):
@@ -110,6 +111,12 @@ def p_empty(p):
 def p_stm_number(p):
    'stm : NUMBER'
    p[0] = ('number', p[1])
+
+precedence = (
+   ('left', 'PLUS', 'MINUS'),
+   ('left', 'TIMES', 'DIVIDE'),
+   ('right', 'UMINUS'),
+)
 
 def p_stm_binop(p):
    """stm : stm PLUS stm

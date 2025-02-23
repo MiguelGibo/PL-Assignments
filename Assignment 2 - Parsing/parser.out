@@ -27,6 +27,7 @@ Unused terminals:
     STRING
     THEN
     TRUE
+    UMINUS
     VAL
 
 Grammar
@@ -71,6 +72,7 @@ STRING               :
 THEN                 : 
 TIMES                : 5
 TRUE                 : 
+UMINUS               : 
 VAL                  : 
 error                : 
 
