@@ -115,11 +115,11 @@ def p_global_facts(p):
 #  | empty 
 def p_facts_func(p):
   "facts : func_def"
-  p[0] = [p[1], p[2]]
+  p[0] = [p[1]] + p[2]
 
 def p_facts_assign(p):
   "facts : ASSIGN facts"
-  p[0] = [p[1], p[2]]
+  p[0] = [p[1]] + p[2]
 
 def p_facts_empty(p):
    "facts : empty"
