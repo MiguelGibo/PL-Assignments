@@ -130,7 +130,7 @@ def p_facts_empty(p):
 
 # func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
 def p_func_def(p):
-   """func_def : FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END"""
+   "func_def : FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END"
 
 # params -> ID_FUNC COMMA params 
 #  | ID COMMA params 
@@ -155,16 +155,18 @@ def p_assign(p):
 
 # stm -> ID_FUNC LBRACE args RBRACE
 def p_id_func(p):
-   """stm : ID_FUNC LBRACE args RBRACE"""
+   "stm : ID_FUNC LBRACE args RBRACE"
 
 # args -> ID_FUNC COMMA args 
 #  | stm COMMA args 
 #  | ID_FUNC 
 #  | stm
 def p_args(p):
-   """args : args COMMA args
-           | ID_FUNC
-           | stm
+   """
+   args : ID_FUNC COMMA args
+        | stm COMMA args
+        | ID_FUNC
+        | stm
    """
 
 # stm -> stm PLUS stm  
@@ -211,8 +213,10 @@ def p_stm_number(p):
   'stm : NUMBER'
 
 def p_stm_bool(p):
-  """stm : TRUE
-        | FALSE"""
+  """
+  stm : TRUE
+      | FALSE
+  """
  
 def p_stm_nil(p):
   "stm : NIL"
@@ -234,7 +238,7 @@ def p_stm_uminus(p):
  
 # exec_line -> EXEC stm
 def p_exec_line(p):
-   "exec_line : stm"
+   "exec_line : EXEC stm"
 
 # empty lines
 def p_empty(p):
