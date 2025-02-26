@@ -128,7 +128,6 @@ def p_facts_assign(p):
 def p_facts_empty(p):
    "facts : "
 
- 
 # func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
 def p_func_def(p):
    """func_def : FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END"""
@@ -156,7 +155,11 @@ def p_id_func(p):
 #  | stm COMMA args 
 #  | ID_FUNC 
 #  | stm
-# TO-DO
+def p_args(p):
+   """args : args COMMA args
+           | ID_FUNC
+           | stm
+   """
 
 # stm -> stm PLUS stm  
 #  |stm MINUS stm 
