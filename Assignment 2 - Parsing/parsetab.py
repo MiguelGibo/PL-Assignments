@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDErightUMINUSAND ASSIGN COMMA DIVIDE DOT ELSE END EQUAL EXEC FALSE FUNC GREATERTHAN IDENTIFIER IF IN LBRACE LESSTHAN LET LPAREN MINUS NIL NUMBER OR PLUS RBRACE RPAREN STRING THEN TIMES TRUE UMINUS VALempty :stm : NUMBERstm : stm PLUS stm\n          | stm MINUS stm\n          | stm TIMES stm\n          | stm DIVIDE stm\n          | stm DOT stm \n          | stm LESSTHAN stm \n          | stm GREATERTHAN stm \n          | stm EQUAL stm \n          | stm AND stm \n          | stm OR stmstm : MINUS stm %prec UMINUSstm : STRINGstm : TRUE\n          | FALSEstm : NIL'
+_lr_signature = 'global_factsleftPLUSMINUSleftTIMESDIVIDErightUMINUSAND ASSIGN COMMA DIVIDE DOT ELSE END EQUAL EXEC FALSE FUNC GREATERTHAN ID ID_FUNC IF IN LBRACE LESSTHAN LET LPAREN MINUS NIL NUMBER OR PLUS RBRACE RPAREN STRING THEN TIMES TRUE UMINUS VALglobal_facts : facts exec_linefacts : func_deffacts : assign factsfacts : emptyfunc_def : FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END\n   params : ID_FUNC COMMA params \n          | ID COMMA params\n   \n   params : ID_FUNC \n          | ID\n   assign : VAL ID ASSIGN stm ENDstm : ID_FUNC LBRACE args RBRACEargs : args COMMA args\n           | ID_FUNC\n           | stm\n   \n   stm  : stm PLUS stm\n        | stm MINUS stm\n        | stm TIMES stm\n        | stm DIVIDE stm\n        | stm DOT stm \n        | stm LESSTHAN stm \n        | stm GREATERTHAN stm \n        | stm EQUAL stm \n        | stm AND stm \n        | stm OR stm\n   stm : STRINGstm : NUMBERstm : TRUE\n        | FALSEstm : NILstm : IDstm : LPAREN stm RPARENstm : IF stm THEN stm ELSE stm ENDstm : LET facts IN stm ENDstm : MINUS stm %prec UMINUSexec_line : stmempty :'
     
-_lr_action_items = {'$end':([0,1,],[-1,0,]),}
+_lr_action_items = {'FUNC':([0,4,20,68,],[6,6,6,-10,]),'VAL':([0,4,20,68,],[7,7,7,-10,]),'ID_FUNC':([0,2,3,4,5,6,11,18,19,21,24,25,26,27,28,29,30,31,32,33,34,39,40,55,56,62,65,67,68,70,73,78,],[-36,10,-2,-36,-4,22,10,10,10,-3,10,10,10,10,10,10,10,10,10,10,51,57,10,10,10,51,57,57,-10,10,10,-5,]),'STRING':([0,2,3,4,5,11,18,19,21,24,25,26,27,28,29,30,31,32,33,34,40,55,56,62,68,70,73,78,],[-36,12,-2,-36,-4,12,12,12,-3,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,-10,12,12,-5,]),'NUMBER':([0,2,3,4,5,11,18,19,21,24,25,26,27,28,29,30,31,32,33,34,40,55,56,62,68,70,73,78,],[-36,13,-2,-36,-4,13,13,13,-3,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,-10,13,13,-5,]),'TRUE':([0,2,3,4,5,11,18,19,21,24,25,26,27,28,29,30,31,32,33,34,40,55,56,62,68,70,73,78,],[-36,14,-2,-36,-4,14,14,14,-3,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,-10,14,14,-5,]),'FALSE':([0,2,3,4,5,11,18,19,21,24,25,26,27,28,29,30,31,32,33,34,40,55,56,62,68,70,73,78,],[-36,15,-2,-36,-4,15,15,15,-3,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,-10,15,15,-5,]),'NIL':([0,2,3,4,5,11,18,19,21,24,25,26,27,28,29,30,31,32,33,34,40,55,56,62,68,70,73,78,],[-36,16,-2,-36,-4,16,16,16,-3,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,-10,16,16,-5,]),'ID':([0,2,3,4,5,7,11,18,19,21,24,25,26,27,28,29,30,31,32,33,34,39,40,55,56,62,65,67,68,70,73,78,],[-36,17,-2,-36,-4,23,17,17,17,-3,17,17,17,17,17,17,17,17,17,17,17,59,17,17,17,17,59,59,-10,17,17,-5,]),'LPAREN':([0,2,3,4,5,11,18,19,21,24,25,26,27,28,29,30,31,32,33,34,40,55,56,62,68,70,73,78,],[-36,18,-2,-36,-4,18,18,18,-3,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,-10,18,18,-5,]),'IF':([0,2,3,4,5,11,18,19,21,24,25,26,27,28,29,30,31,32,33,34,40,55,56,62,68,70,73,78,],[-36,19,-2,-36,-4,19,19,19,-3,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,-10,19,19,-5,]),'LET':([0,2,3,4,5,11,18,19,21,24,25,26,27,28,29,30,31,32,33,34,40,55,56,62,68,70,73,78,],[-36,20,-2,-36,-4,20,20,20,-3,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,-10,20,20,-5,]),'MINUS':([0,2,3,4,5,9,11,12,13,14,15,16,17,18,19,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,40,41,42,43,44,45,46,47,48,49,50,53,54,55,56,60,61,62,63,64,68,70,71,73,75,76,77,78,],[-36,11,-2,-36,-4,25,11,-25,-26,-27,-28,-29,-30,11,11,-3,11,11,11,11,11,11,11,11,11,11,11,-34,25,25,11,-15,-16,-17,-18,25,25,25,25,25,25,25,-31,11,11,25,-11,11,25,25,-10,11,-33,11,25,25,-32,-5,]),'$end':([1,8,9,12,13,14,15,16,17,35,41,42,43,44,45,46,47,48,49,50,54,61,71,77,],[0,-1,-35,-25,-26,-27,-28,-29,-30,-34,-15,-16,-17,-18,-19,-20,-21,-22,-23,-24,-31,-11,-33,-32,]),'IN':([3,4,5,20,21,38,68,78,],[-2,-36,-4,-36,-3,56,-10,-5,]),'PLUS':([9,12,13,14,15,16,17,35,36,37,41,42,43,44,45,46,47,48,49,50,53,54,60,61,63,64,71,75,76,77,],[24,-25,-26,-27,-28,-29,-30,-34,24,24,-15,-16,-17,-18,24,24,24,24,24,24,24,-31,24,-11,24,24,-33,24,24,-32,]),'TIMES':([9,12,13,14,15,16,17,35,36,37,41,42,43,44,45,46,47,48,49,50,53,54,60,61,63,64,71,75,76,77,],[26,-25,-26,-27,-28,-29,-30,-34,26,26,26,26,-17,-18,26,26,26,26,26,26,26,-31,26,-11,26,26,-33,26,26,-32,]),'DIVIDE':([9,12,13,14,15,16,17,35,36,37,41,42,43,44,45,46,47,48,49,50,53,54,60,61,63,64,71,75,76,77,],[27,-25,-26,-27,-28,-29,-30,-34,27,27,27,27,-17,-18,27,27,27,27,27,27,27,-31,27,-11,27,27,-33,27,27,-32,]),'DOT':([9,12,13,14,15,16,17,35,36,37,41,42,43,44,45,46,47,48,49,50,53,54,60,61,63,64,71,75,76,77,],[28,-25,-26,-27,-28,-29,-30,-34,28,28,-15,-16,-17,-18,28,28,28,28,28,28,28,-31,28,-11,28,28,-33,28,28,-32,]),'LESSTHAN':([9,12,13,14,15,16,17,35,36,37,41,42,43,44,45,46,47,48,49,50,53,54,60,61,63,64,71,75,76,77,],[29,-25,-26,-27,-28,-29,-30,-34,29,29,-15,-16,-17,-18,29,29,29,29,29,29,29,-31,29,-11,29,29,-33,29,29,-32,]),'GREATERTHAN':([9,12,13,14,15,16,17,35,36,37,41,42,43,44,45,46,47,48,49,50,53,54,60,61,63,64,71,75,76,77,],[30,-25,-26,-27,-28,-29,-30,-34,30,30,-15,-16,-17,-18,30,30,30,30,30,30,30,-31,30,-11,30,30,-33,30,30,-32,]),'EQUAL':([9,12,13,14,15,16,17,35,36,37,41,42,43,44,45,46,47,48,49,50,53,54,60,61,63,64,71,75,76,77,],[31,-25,-26,-27,-28,-29,-30,-34,31,31,-15,-16,-17,-18,31,31,31,31,31,31,31,-31,31,-11,31,31,-33,31,31,-32,]),'AND':([9,12,13,14,15,16,17,35,36,37,41,42,43,44,45,46,47,48,49,50,53,54,60,61,63,64,71,75,76,77,],[32,-25,-26,-27,-28,-29,-30,-34,32,32,-15,-16,-17,-18,32,32,32,32,32,32,32,-31,32,-11,32,32,-33,32,32,-32,]),'OR':([9,12,13,14,15,16,17,35,36,37,41,42,43,44,45,46,47,48,49,50,53,54,60,61,63,64,71,75,76,77,],[33,-25,-26,-27,-28,-29,-30,-34,33,33,-15,-16,-17,-18,33,33,33,33,33,33,33,-31,33,-11,33,33,-33,33,33,-32,]),'LBRACE':([10,22,51,],[34,39,34,]),'RPAREN':([12,13,14,15,16,17,35,36,41,42,43,44,45,46,47,48,49,50,54,61,71,77,],[-25,-26,-27,-28,-29,-30,-34,54,-15,-16,-17,-18,-19,-20,-21,-22,-23,-24,-31,-11,-33,-32,]),'THEN':([12,13,14,15,16,17,35,37,41,42,43,44,45,46,47,48,49,50,54,61,71,77,],[-25,-26,-27,-28,-29,-30,-34,55,-15,-16,-17,-18,-19,-20,-21,-22,-23,-24,-31,-11,-33,-32,]),'RBRACE':([12,13,14,15,16,17,35,41,42,43,44,45,46,47,48,49,50,51,52,53,54,57,58,59,61,69,71,72,74,77,],[-25,-26,-27,-28,-29,-30,-34,-15,-16,-17,-18,-19,-20,-21,-22,-23,-24,-13,61,-14,-31,-8,66,-9,-11,-12,-33,-6,-7,-32,]),'COMMA':([12,13,14,15,16,17,35,41,42,43,44,45,46,47,48,49,50,51,52,53,54,57,59,61,69,71,77,],[-25,-26,-27,-28,-29,-30,-34,-15,-16,-17,-18,-19,-20,-21,-22,-23,-24,-13,62,-14,-31,65,67,-11,62,-33,-32,]),'END':([12,13,14,15,16,17,35,41,42,43,44,45,46,47,48,49,50,54,60,61,64,71,75,76,77,],[-25,-26,-27,-28,-29,-30,-34,-15,-16,-17,-18,-19,-20,-21,-22,-23,-24,-31,68,-11,71,-33,77,78,-32,]),'ELSE':([12,13,14,15,16,17,35,41,42,43,44,45,46,47,48,49,50,54,61,63,71,77,],[-25,-26,-27,-28,-29,-30,-34,-15,-16,-17,-18,-19,-20,-21,-22,-23,-24,-31,-11,70,-33,-32,]),'ASSIGN':([23,66,],[40,73,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'empty':([0,],[1,]),}
+_lr_goto_items = {'global_facts':([0,],[1,]),'facts':([0,4,20,],[2,21,38,]),'func_def':([0,4,20,],[3,3,3,]),'assign':([0,4,20,],[4,4,4,]),'empty':([0,4,20,],[5,5,5,]),'exec_line':([2,],[8,]),'stm':([2,11,18,19,24,25,26,27,28,29,30,31,32,33,34,40,55,56,62,70,73,],[9,35,36,37,41,42,43,44,45,46,47,48,49,50,53,60,63,64,53,75,76,]),'args':([34,62,],[52,69,]),'params':([39,65,67,],[58,72,74,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,22 +26,41 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> empty","S'",1,None,None,None),
-  ('empty -> <empty>','empty',0,'p_empty','A2_Template.py',108),
-  ('stm -> NUMBER','stm',1,'p_stm_number','A2_Template.py',112),
-  ('stm -> stm PLUS stm','stm',3,'p_stm_binop','A2_Template.py',122),
-  ('stm -> stm MINUS stm','stm',3,'p_stm_binop','A2_Template.py',123),
-  ('stm -> stm TIMES stm','stm',3,'p_stm_binop','A2_Template.py',124),
-  ('stm -> stm DIVIDE stm','stm',3,'p_stm_binop','A2_Template.py',125),
-  ('stm -> stm DOT stm','stm',3,'p_stm_binop','A2_Template.py',126),
-  ('stm -> stm LESSTHAN stm','stm',3,'p_stm_binop','A2_Template.py',127),
-  ('stm -> stm GREATERTHAN stm','stm',3,'p_stm_binop','A2_Template.py',128),
-  ('stm -> stm EQUAL stm','stm',3,'p_stm_binop','A2_Template.py',129),
-  ('stm -> stm AND stm','stm',3,'p_stm_binop','A2_Template.py',130),
-  ('stm -> stm OR stm','stm',3,'p_stm_binop','A2_Template.py',131),
-  ('stm -> MINUS stm','stm',2,'p_stm_uminus','A2_Template.py',135),
-  ('stm -> STRING','stm',1,'p_stm_string','A2_Template.py',139),
-  ('stm -> TRUE','stm',1,'p_stm_bool','A2_Template.py',143),
-  ('stm -> FALSE','stm',1,'p_stm_bool','A2_Template.py',144),
-  ('stm -> NIL','stm',1,'p_stm_nil','A2_Template.py',148),
+  ("S' -> global_facts","S'",1,None,None,None),
+  ('global_facts -> facts exec_line','global_facts',2,'p_global_facts','A2_Template.py',117),
+  ('facts -> func_def','facts',1,'p_facts_func','A2_Template.py',123),
+  ('facts -> assign facts','facts',2,'p_facts_assign','A2_Template.py',126),
+  ('facts -> empty','facts',1,'p_facts_empty','A2_Template.py',129),
+  ('func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END','func_def',8,'p_func_def','A2_Template.py',133),
+  ('params -> ID_FUNC COMMA params','params',3,'p_params_func','A2_Template.py',141),
+  ('params -> ID COMMA params','params',3,'p_params_func','A2_Template.py',142),
+  ('params -> ID_FUNC','params',1,'p_params_ID','A2_Template.py',147),
+  ('params -> ID','params',1,'p_params_ID','A2_Template.py',148),
+  ('assign -> VAL ID ASSIGN stm END','assign',5,'p_assign','A2_Template.py',153),
+  ('stm -> ID_FUNC LBRACE args RBRACE','stm',4,'p_id_func','A2_Template.py',158),
+  ('args -> args COMMA args','args',3,'p_args','A2_Template.py',165),
+  ('args -> ID_FUNC','args',1,'p_args','A2_Template.py',166),
+  ('args -> stm','args',1,'p_args','A2_Template.py',167),
+  ('stm -> stm PLUS stm','stm',3,'p_stm_binop','A2_Template.py',195),
+  ('stm -> stm MINUS stm','stm',3,'p_stm_binop','A2_Template.py',196),
+  ('stm -> stm TIMES stm','stm',3,'p_stm_binop','A2_Template.py',197),
+  ('stm -> stm DIVIDE stm','stm',3,'p_stm_binop','A2_Template.py',198),
+  ('stm -> stm DOT stm','stm',3,'p_stm_binop','A2_Template.py',199),
+  ('stm -> stm LESSTHAN stm','stm',3,'p_stm_binop','A2_Template.py',200),
+  ('stm -> stm GREATERTHAN stm','stm',3,'p_stm_binop','A2_Template.py',201),
+  ('stm -> stm EQUAL stm','stm',3,'p_stm_binop','A2_Template.py',202),
+  ('stm -> stm AND stm','stm',3,'p_stm_binop','A2_Template.py',203),
+  ('stm -> stm OR stm','stm',3,'p_stm_binop','A2_Template.py',204),
+  ('stm -> STRING','stm',1,'p_stm_string','A2_Template.py',208),
+  ('stm -> NUMBER','stm',1,'p_stm_number','A2_Template.py',211),
+  ('stm -> TRUE','stm',1,'p_stm_bool','A2_Template.py',214),
+  ('stm -> FALSE','stm',1,'p_stm_bool','A2_Template.py',215),
+  ('stm -> NIL','stm',1,'p_stm_nil','A2_Template.py',218),
+  ('stm -> ID','stm',1,'p_stm_id','A2_Template.py',221),
+  ('stm -> LPAREN stm RPAREN','stm',3,'p_stm_group','A2_Template.py',224),
+  ('stm -> IF stm THEN stm ELSE stm END','stm',7,'p_stm_if','A2_Template.py',227),
+  ('stm -> LET facts IN stm END','stm',5,'p_stm_let','A2_Template.py',230),
+  ('stm -> MINUS stm','stm',2,'p_stm_uminus','A2_Template.py',233),
+  ('exec_line -> stm','exec_line',1,'p_exec_line','A2_Template.py',237),
+  ('empty -> <empty>','empty',0,'p_empty','A2_Template.py',241),
 ]

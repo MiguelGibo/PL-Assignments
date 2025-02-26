@@ -54,13 +54,13 @@ tokens = [
     'ID_FUNC',
 ] + list(reserved.values())     # Add reserved words to token list
 
-def t_IDENTIFIER(t):
+def t_ID(t):
     r'[a-z][a-zA-Z0-9_\']*'
     if t.value in reserved:
         t.type = reserved[t.value]
     return t
 
-def t_ID(t):
+def t_ID_FUNC(t):
     r'[A-Z][a-zA-Z0-9_\']*'
     if t.value in reserved:
         t.type = reserved[t.value]
@@ -126,7 +126,7 @@ def p_facts_assign(p):
   "facts : assign facts"
 
 def p_facts_empty(p):
-   "facts : "
+   "facts : empty"
 
 # func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
 def p_func_def(p):
@@ -136,11 +136,17 @@ def p_func_def(p):
 #  | ID COMMA params 
 #  | ID_FUNC 
 #  | ID
-def p_params(p):
-   """params: ID_FUNC COMMA params 
-            | ID COMMA params 
-            | ID_FUNC 
-            | ID"""
+def p_params_func(p):
+   """
+   params : ID_FUNC COMMA params 
+          | ID COMMA params
+   """
+   
+def p_params_ID(p):
+   """
+   params : ID_FUNC 
+          | ID
+   """
 
 # assign -> VAL ID ASSIGN stm END
 def p_assign(p):
@@ -149,7 +155,7 @@ def p_assign(p):
 
 # stm -> ID_FUNC LBRACE args RBRACE
 def p_id_func(p):
-   """ID_FUNC : LBRACE args RBRACE"""
+   """stm : ID_FUNC LBRACE args RBRACE"""
 
 # args -> ID_FUNC COMMA args 
 #  | stm COMMA args 
@@ -184,11 +190,9 @@ precedence = (('left', 'PLUS', 'MINUS'),
               ('left', 'TIMES', 'DIVIDE'),
               ('right', 'UMINUS'),)
 
-def p_stm_number(p):
-  'stm : NUMBER'
-
 def p_stm_binop(p):
-  """stm : stm PLUS stm
+   """
+   stm  : stm PLUS stm
         | stm MINUS stm
         | stm TIMES stm
         | stm DIVIDE stm
@@ -197,13 +201,14 @@ def p_stm_binop(p):
         | stm GREATERTHAN stm 
         | stm EQUAL stm 
         | stm AND stm 
-        | stm OR stm"""
-
-def p_stm_uminus(p):
-  "stm : MINUS stm %prec UMINUS"
+        | stm OR stm
+   """
 
 def p_stm_string(p):
   "stm : STRING"
+
+def p_stm_number(p):
+  'stm : NUMBER'
 
 def p_stm_bool(p):
   """stm : TRUE
@@ -223,6 +228,9 @@ def p_stm_if(p):
 
 def p_stm_let(p):
    "stm : LET facts IN stm END"
+
+def p_stm_uminus(p):
+  "stm : MINUS stm %prec UMINUS"
  
 # exec_line -> EXEC stm
 def p_exec_line(p):
@@ -231,13 +239,14 @@ def p_exec_line(p):
 # empty lines
 def p_empty(p):
   'empty :'
+  pass
 
 # incorrect syntax
 def p_error(p):
   if p:
     print(f"Syntax error in input: {p.lineno}")
   else:
-    print(f"Syntax error in input: none")
+    print("Syntax error in input: none")
 #
 # END PARSING DEFINITION
 
