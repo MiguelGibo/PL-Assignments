@@ -51,10 +51,17 @@ tokens = [
     'AND',          #the string &
     'OR',           #the string |
     'UMINUS',       #Fictitous token for unanry minus
+    'ID_FUNC',
 ] + list(reserved.values())     # Add reserved words to token list
 
 def t_IDENTIFIER(t):
-    r'[a-zA-Z][a-zA-Z0-9_\']*'
+    r'[a-z][a-zA-Z0-9_\']*'
+    if t.value in reserved:
+        t.type = reserved[t.value]
+    return t
+
+def t_IDENTIFIER(t):
+    r'[A-Z][a-zA-Z0-9_\']*'
     if t.value in reserved:
         t.type = reserved[t.value]
     return t
@@ -119,7 +126,7 @@ def p_facts_assign(p):
   "facts : assign facts"
 
 def p_facts_empty(p):
-   "facts : empty"
+   "facts : "
 
  
 # func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
@@ -130,7 +137,9 @@ def p_facts_empty(p):
 #  | ID_FUNC 
 #  | ID
 def p_params(p):
-   pass
+   """params: ID_FUNC COMMA params
+          | stm COMMA args
+          | stm"""
 
 # assign -> VAL ID ASSIGN stm END
 # TO-DO
