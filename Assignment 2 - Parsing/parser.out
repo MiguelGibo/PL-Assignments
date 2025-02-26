@@ -10,7 +10,7 @@ Rule 0     S' -> global_facts
 Rule 1     global_facts -> facts exec_line
 Rule 2     facts -> func_def
 Rule 3     facts -> assign facts
-Rule 4     facts -> empty
+Rule 4     facts -> <empty>
 Rule 5     func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
 Rule 6     params -> ID_FUNC COMMA params
 Rule 7     params -> ID COMMA params
@@ -86,7 +86,7 @@ Nonterminals, with rules where they appear
 
 args                 : 11 12 13
 assign               : 3
-empty                : 4
+empty                : 
 exec_line            : 1
 facts                : 1 3 34
 func_def             : 2
@@ -102,20 +102,18 @@ state 0
     (1) global_facts -> . facts exec_line
     (2) facts -> . func_def
     (3) facts -> . assign facts
-    (4) facts -> . empty
+    (4) facts -> .
     (5) func_def -> . FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
     (10) assign -> . VAL ID ASSIGN stm END
-    (37) empty -> .
 
-    FUNC            shift and go to state 6
-    VAL             shift and go to state 7
-    EXEC            reduce using rule 37 (empty -> .)
+    EXEC            reduce using rule 4 (facts -> .)
+    FUNC            shift and go to state 5
+    VAL             shift and go to state 6
 
     global_facts                   shift and go to state 1
     facts                          shift and go to state 2
     func_def                       shift and go to state 3
     assign                         shift and go to state 4
-    empty                          shift and go to state 5
 
 state 1
 
@@ -128,9 +126,9 @@ state 2
     (1) global_facts -> facts . exec_line
     (36) exec_line -> . EXEC stm
 
-    EXEC            shift and go to state 9
+    EXEC            shift and go to state 8
 
-    exec_line                      shift and go to state 8
+    exec_line                      shift and go to state 7
 
 state 3
 
@@ -145,51 +143,41 @@ state 4
     (3) facts -> assign . facts
     (2) facts -> . func_def
     (3) facts -> . assign facts
-    (4) facts -> . empty
+    (4) facts -> .
     (5) func_def -> . FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
     (10) assign -> . VAL ID ASSIGN stm END
-    (37) empty -> .
 
-    FUNC            shift and go to state 6
-    VAL             shift and go to state 7
-    EXEC            reduce using rule 37 (empty -> .)
-    IN              reduce using rule 37 (empty -> .)
+    EXEC            reduce using rule 4 (facts -> .)
+    IN              reduce using rule 4 (facts -> .)
+    FUNC            shift and go to state 5
+    VAL             shift and go to state 6
 
     assign                         shift and go to state 4
-    facts                          shift and go to state 10
+    facts                          shift and go to state 9
     func_def                       shift and go to state 3
-    empty                          shift and go to state 5
 
 state 5
 
-    (4) facts -> empty .
+    (5) func_def -> FUNC . ID_FUNC LBRACE params RBRACE ASSIGN stm END
 
-    EXEC            reduce using rule 4 (facts -> empty .)
-    IN              reduce using rule 4 (facts -> empty .)
+    ID_FUNC         shift and go to state 10
 
 
 state 6
 
-    (5) func_def -> FUNC . ID_FUNC LBRACE params RBRACE ASSIGN stm END
+    (10) assign -> VAL . ID ASSIGN stm END
 
-    ID_FUNC         shift and go to state 11
+    ID              shift and go to state 11
 
 
 state 7
-
-    (10) assign -> VAL . ID ASSIGN stm END
-
-    ID              shift and go to state 12
-
-
-state 8
 
     (1) global_facts -> facts exec_line .
 
     $end            reduce using rule 1 (global_facts -> facts exec_line .)
 
 
-state 9
+state 8
 
     (36) exec_line -> EXEC . stm
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -214,21 +202,21 @@ state 9
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 13
+    stm                            shift and go to state 12
 
-state 10
+state 9
 
     (3) facts -> assign facts .
 
@@ -236,21 +224,21 @@ state 10
     IN              reduce using rule 3 (facts -> assign facts .)
 
 
-state 11
+state 10
 
     (5) func_def -> FUNC ID_FUNC . LBRACE params RBRACE ASSIGN stm END
 
-    LBRACE          shift and go to state 25
+    LBRACE          shift and go to state 24
 
 
-state 12
+state 11
 
     (10) assign -> VAL ID . ASSIGN stm END
 
-    ASSIGN          shift and go to state 26
+    ASSIGN          shift and go to state 25
 
 
-state 13
+state 12
 
     (36) exec_line -> EXEC stm .
     (16) stm -> stm . PLUS stm
@@ -265,26 +253,26 @@ state 13
     (25) stm -> stm . OR stm
 
     $end            reduce using rule 36 (exec_line -> EXEC stm .)
-    PLUS            shift and go to state 27
-    MINUS           shift and go to state 28
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
-    DOT             shift and go to state 31
-    LESSTHAN        shift and go to state 32
-    GREATERTHAN     shift and go to state 33
-    EQUAL           shift and go to state 34
-    AND             shift and go to state 35
-    OR              shift and go to state 36
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    DOT             shift and go to state 30
+    LESSTHAN        shift and go to state 31
+    GREATERTHAN     shift and go to state 32
+    EQUAL           shift and go to state 33
+    AND             shift and go to state 34
+    OR              shift and go to state 35
 
 
-state 14
+state 13
 
     (11) stm -> ID_FUNC . LBRACE args RBRACE
 
-    LBRACE          shift and go to state 37
+    LBRACE          shift and go to state 36
 
 
-state 15
+state 14
 
     (35) stm -> MINUS . stm
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -309,21 +297,21 @@ state 15
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 38
+    stm                            shift and go to state 37
 
-state 16
+state 15
 
     (26) stm -> STRING .
 
@@ -346,7 +334,7 @@ state 16
     ELSE            reduce using rule 26 (stm -> STRING .)
 
 
-state 17
+state 16
 
     (27) stm -> NUMBER .
 
@@ -369,7 +357,7 @@ state 17
     ELSE            reduce using rule 27 (stm -> NUMBER .)
 
 
-state 18
+state 17
 
     (28) stm -> TRUE .
 
@@ -392,7 +380,7 @@ state 18
     ELSE            reduce using rule 28 (stm -> TRUE .)
 
 
-state 19
+state 18
 
     (29) stm -> FALSE .
 
@@ -415,7 +403,7 @@ state 19
     ELSE            reduce using rule 29 (stm -> FALSE .)
 
 
-state 20
+state 19
 
     (30) stm -> NIL .
 
@@ -438,7 +426,7 @@ state 20
     ELSE            reduce using rule 30 (stm -> NIL .)
 
 
-state 21
+state 20
 
     (31) stm -> ID .
 
@@ -461,7 +449,7 @@ state 21
     ELSE            reduce using rule 31 (stm -> ID .)
 
 
-state 22
+state 21
 
     (32) stm -> LPAREN . stm RPAREN
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -486,21 +474,21 @@ state 22
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 39
+    stm                            shift and go to state 38
 
-state 23
+state 22
 
     (33) stm -> IF . stm THEN stm ELSE stm END
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -525,40 +513,38 @@ state 23
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 40
+    stm                            shift and go to state 39
 
-state 24
+state 23
 
     (34) stm -> LET . facts IN stm END
     (2) facts -> . func_def
     (3) facts -> . assign facts
-    (4) facts -> . empty
+    (4) facts -> .
     (5) func_def -> . FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
     (10) assign -> . VAL ID ASSIGN stm END
-    (37) empty -> .
 
-    FUNC            shift and go to state 6
-    VAL             shift and go to state 7
-    IN              reduce using rule 37 (empty -> .)
+    IN              reduce using rule 4 (facts -> .)
+    FUNC            shift and go to state 5
+    VAL             shift and go to state 6
 
-    facts                          shift and go to state 41
+    facts                          shift and go to state 40
     func_def                       shift and go to state 3
     assign                         shift and go to state 4
-    empty                          shift and go to state 5
 
-state 25
+state 24
 
     (5) func_def -> FUNC ID_FUNC LBRACE . params RBRACE ASSIGN stm END
     (6) params -> . ID_FUNC COMMA params
@@ -566,12 +552,12 @@ state 25
     (8) params -> . ID_FUNC
     (9) params -> . ID
 
-    ID_FUNC         shift and go to state 42
-    ID              shift and go to state 44
+    ID_FUNC         shift and go to state 41
+    ID              shift and go to state 43
 
-    params                         shift and go to state 43
+    params                         shift and go to state 42
 
-state 26
+state 25
 
     (10) assign -> VAL ID ASSIGN . stm END
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -596,21 +582,21 @@ state 26
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 45
+    stm                            shift and go to state 44
 
-state 27
+state 26
 
     (16) stm -> stm PLUS . stm
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -635,21 +621,21 @@ state 27
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 46
+    stm                            shift and go to state 45
 
-state 28
+state 27
 
     (17) stm -> stm MINUS . stm
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -674,21 +660,21 @@ state 28
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 47
+    stm                            shift and go to state 46
 
-state 29
+state 28
 
     (18) stm -> stm TIMES . stm
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -713,21 +699,21 @@ state 29
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 48
+    stm                            shift and go to state 47
 
-state 30
+state 29
 
     (19) stm -> stm DIVIDE . stm
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -752,21 +738,21 @@ state 30
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 49
+    stm                            shift and go to state 48
 
-state 31
+state 30
 
     (20) stm -> stm DOT . stm
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -791,21 +777,21 @@ state 31
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 50
+    stm                            shift and go to state 49
 
-state 32
+state 31
 
     (21) stm -> stm LESSTHAN . stm
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -830,21 +816,21 @@ state 32
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 51
+    stm                            shift and go to state 50
 
-state 33
+state 32
 
     (22) stm -> stm GREATERTHAN . stm
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -869,21 +855,21 @@ state 33
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 52
+    stm                            shift and go to state 51
 
-state 34
+state 33
 
     (23) stm -> stm EQUAL . stm
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -908,21 +894,21 @@ state 34
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 53
+    stm                            shift and go to state 52
 
-state 35
+state 34
 
     (24) stm -> stm AND . stm
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -947,21 +933,21 @@ state 35
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 54
+    stm                            shift and go to state 53
 
-state 36
+state 35
 
     (25) stm -> stm OR . stm
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -986,21 +972,21 @@ state 36
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 55
+    stm                            shift and go to state 54
 
-state 37
+state 36
 
     (11) stm -> ID_FUNC LBRACE . args RBRACE
     (12) args -> . ID_FUNC COMMA args
@@ -1029,22 +1015,22 @@ state 37
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 56
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 55
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    args                           shift and go to state 57
-    stm                            shift and go to state 58
+    args                           shift and go to state 56
+    stm                            shift and go to state 57
 
-state 38
+state 37
 
     (35) stm -> MINUS stm .
     (16) stm -> stm . PLUS stm
@@ -1076,19 +1062,19 @@ state 38
     RBRACE          reduce using rule 35 (stm -> MINUS stm .)
     ELSE            reduce using rule 35 (stm -> MINUS stm .)
 
-  ! PLUS            [ shift and go to state 27 ]
-  ! MINUS           [ shift and go to state 28 ]
-  ! TIMES           [ shift and go to state 29 ]
-  ! DIVIDE          [ shift and go to state 30 ]
-  ! DOT             [ shift and go to state 31 ]
-  ! LESSTHAN        [ shift and go to state 32 ]
-  ! GREATERTHAN     [ shift and go to state 33 ]
-  ! EQUAL           [ shift and go to state 34 ]
-  ! AND             [ shift and go to state 35 ]
-  ! OR              [ shift and go to state 36 ]
+  ! PLUS            [ shift and go to state 26 ]
+  ! MINUS           [ shift and go to state 27 ]
+  ! TIMES           [ shift and go to state 28 ]
+  ! DIVIDE          [ shift and go to state 29 ]
+  ! DOT             [ shift and go to state 30 ]
+  ! LESSTHAN        [ shift and go to state 31 ]
+  ! GREATERTHAN     [ shift and go to state 32 ]
+  ! EQUAL           [ shift and go to state 33 ]
+  ! AND             [ shift and go to state 34 ]
+  ! OR              [ shift and go to state 35 ]
 
 
-state 39
+state 38
 
     (32) stm -> LPAREN stm . RPAREN
     (16) stm -> stm . PLUS stm
@@ -1102,20 +1088,20 @@ state 39
     (24) stm -> stm . AND stm
     (25) stm -> stm . OR stm
 
-    RPAREN          shift and go to state 59
-    PLUS            shift and go to state 27
-    MINUS           shift and go to state 28
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
-    DOT             shift and go to state 31
-    LESSTHAN        shift and go to state 32
-    GREATERTHAN     shift and go to state 33
-    EQUAL           shift and go to state 34
-    AND             shift and go to state 35
-    OR              shift and go to state 36
+    RPAREN          shift and go to state 58
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    DOT             shift and go to state 30
+    LESSTHAN        shift and go to state 31
+    GREATERTHAN     shift and go to state 32
+    EQUAL           shift and go to state 33
+    AND             shift and go to state 34
+    OR              shift and go to state 35
 
 
-state 40
+state 39
 
     (33) stm -> IF stm . THEN stm ELSE stm END
     (16) stm -> stm . PLUS stm
@@ -1129,52 +1115,52 @@ state 40
     (24) stm -> stm . AND stm
     (25) stm -> stm . OR stm
 
-    THEN            shift and go to state 60
-    PLUS            shift and go to state 27
-    MINUS           shift and go to state 28
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
-    DOT             shift and go to state 31
-    LESSTHAN        shift and go to state 32
-    GREATERTHAN     shift and go to state 33
-    EQUAL           shift and go to state 34
-    AND             shift and go to state 35
-    OR              shift and go to state 36
+    THEN            shift and go to state 59
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    DOT             shift and go to state 30
+    LESSTHAN        shift and go to state 31
+    GREATERTHAN     shift and go to state 32
+    EQUAL           shift and go to state 33
+    AND             shift and go to state 34
+    OR              shift and go to state 35
+
+
+state 40
+
+    (34) stm -> LET facts . IN stm END
+
+    IN              shift and go to state 60
 
 
 state 41
 
-    (34) stm -> LET facts . IN stm END
+    (6) params -> ID_FUNC . COMMA params
+    (8) params -> ID_FUNC .
 
-    IN              shift and go to state 61
+    COMMA           shift and go to state 61
+    RBRACE          reduce using rule 8 (params -> ID_FUNC .)
 
 
 state 42
 
-    (6) params -> ID_FUNC . COMMA params
-    (8) params -> ID_FUNC .
+    (5) func_def -> FUNC ID_FUNC LBRACE params . RBRACE ASSIGN stm END
 
-    COMMA           shift and go to state 62
-    RBRACE          reduce using rule 8 (params -> ID_FUNC .)
+    RBRACE          shift and go to state 62
 
 
 state 43
 
-    (5) func_def -> FUNC ID_FUNC LBRACE params . RBRACE ASSIGN stm END
-
-    RBRACE          shift and go to state 63
-
-
-state 44
-
     (7) params -> ID . COMMA params
     (9) params -> ID .
 
-    COMMA           shift and go to state 64
+    COMMA           shift and go to state 63
     RBRACE          reduce using rule 9 (params -> ID .)
 
 
-state 45
+state 44
 
     (10) assign -> VAL ID ASSIGN stm . END
     (16) stm -> stm . PLUS stm
@@ -1188,20 +1174,20 @@ state 45
     (24) stm -> stm . AND stm
     (25) stm -> stm . OR stm
 
-    END             shift and go to state 65
-    PLUS            shift and go to state 27
-    MINUS           shift and go to state 28
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
-    DOT             shift and go to state 31
-    LESSTHAN        shift and go to state 32
-    GREATERTHAN     shift and go to state 33
-    EQUAL           shift and go to state 34
-    AND             shift and go to state 35
-    OR              shift and go to state 36
+    END             shift and go to state 64
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    DOT             shift and go to state 30
+    LESSTHAN        shift and go to state 31
+    GREATERTHAN     shift and go to state 32
+    EQUAL           shift and go to state 33
+    AND             shift and go to state 34
+    OR              shift and go to state 35
 
 
-state 46
+state 45
 
     (16) stm -> stm PLUS stm .
     (16) stm -> stm . PLUS stm
@@ -1230,22 +1216,22 @@ state 46
     COMMA           reduce using rule 16 (stm -> stm PLUS stm .)
     RBRACE          reduce using rule 16 (stm -> stm PLUS stm .)
     ELSE            reduce using rule 16 (stm -> stm PLUS stm .)
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
 
   ! TIMES           [ reduce using rule 16 (stm -> stm PLUS stm .) ]
   ! DIVIDE          [ reduce using rule 16 (stm -> stm PLUS stm .) ]
-  ! PLUS            [ shift and go to state 27 ]
-  ! MINUS           [ shift and go to state 28 ]
-  ! DOT             [ shift and go to state 31 ]
-  ! LESSTHAN        [ shift and go to state 32 ]
-  ! GREATERTHAN     [ shift and go to state 33 ]
-  ! EQUAL           [ shift and go to state 34 ]
-  ! AND             [ shift and go to state 35 ]
-  ! OR              [ shift and go to state 36 ]
+  ! PLUS            [ shift and go to state 26 ]
+  ! MINUS           [ shift and go to state 27 ]
+  ! DOT             [ shift and go to state 30 ]
+  ! LESSTHAN        [ shift and go to state 31 ]
+  ! GREATERTHAN     [ shift and go to state 32 ]
+  ! EQUAL           [ shift and go to state 33 ]
+  ! AND             [ shift and go to state 34 ]
+  ! OR              [ shift and go to state 35 ]
 
 
-state 47
+state 46
 
     (17) stm -> stm MINUS stm .
     (16) stm -> stm . PLUS stm
@@ -1274,22 +1260,22 @@ state 47
     COMMA           reduce using rule 17 (stm -> stm MINUS stm .)
     RBRACE          reduce using rule 17 (stm -> stm MINUS stm .)
     ELSE            reduce using rule 17 (stm -> stm MINUS stm .)
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
 
   ! TIMES           [ reduce using rule 17 (stm -> stm MINUS stm .) ]
   ! DIVIDE          [ reduce using rule 17 (stm -> stm MINUS stm .) ]
-  ! PLUS            [ shift and go to state 27 ]
-  ! MINUS           [ shift and go to state 28 ]
-  ! DOT             [ shift and go to state 31 ]
-  ! LESSTHAN        [ shift and go to state 32 ]
-  ! GREATERTHAN     [ shift and go to state 33 ]
-  ! EQUAL           [ shift and go to state 34 ]
-  ! AND             [ shift and go to state 35 ]
-  ! OR              [ shift and go to state 36 ]
+  ! PLUS            [ shift and go to state 26 ]
+  ! MINUS           [ shift and go to state 27 ]
+  ! DOT             [ shift and go to state 30 ]
+  ! LESSTHAN        [ shift and go to state 31 ]
+  ! GREATERTHAN     [ shift and go to state 32 ]
+  ! EQUAL           [ shift and go to state 33 ]
+  ! AND             [ shift and go to state 34 ]
+  ! OR              [ shift and go to state 35 ]
 
 
-state 48
+state 47
 
     (18) stm -> stm TIMES stm .
     (16) stm -> stm . PLUS stm
@@ -1321,19 +1307,19 @@ state 48
     RBRACE          reduce using rule 18 (stm -> stm TIMES stm .)
     ELSE            reduce using rule 18 (stm -> stm TIMES stm .)
 
-  ! PLUS            [ shift and go to state 27 ]
-  ! MINUS           [ shift and go to state 28 ]
-  ! TIMES           [ shift and go to state 29 ]
-  ! DIVIDE          [ shift and go to state 30 ]
-  ! DOT             [ shift and go to state 31 ]
-  ! LESSTHAN        [ shift and go to state 32 ]
-  ! GREATERTHAN     [ shift and go to state 33 ]
-  ! EQUAL           [ shift and go to state 34 ]
-  ! AND             [ shift and go to state 35 ]
-  ! OR              [ shift and go to state 36 ]
+  ! PLUS            [ shift and go to state 26 ]
+  ! MINUS           [ shift and go to state 27 ]
+  ! TIMES           [ shift and go to state 28 ]
+  ! DIVIDE          [ shift and go to state 29 ]
+  ! DOT             [ shift and go to state 30 ]
+  ! LESSTHAN        [ shift and go to state 31 ]
+  ! GREATERTHAN     [ shift and go to state 32 ]
+  ! EQUAL           [ shift and go to state 33 ]
+  ! AND             [ shift and go to state 34 ]
+  ! OR              [ shift and go to state 35 ]
 
 
-state 49
+state 48
 
     (19) stm -> stm DIVIDE stm .
     (16) stm -> stm . PLUS stm
@@ -1365,19 +1351,19 @@ state 49
     RBRACE          reduce using rule 19 (stm -> stm DIVIDE stm .)
     ELSE            reduce using rule 19 (stm -> stm DIVIDE stm .)
 
-  ! PLUS            [ shift and go to state 27 ]
-  ! MINUS           [ shift and go to state 28 ]
-  ! TIMES           [ shift and go to state 29 ]
-  ! DIVIDE          [ shift and go to state 30 ]
-  ! DOT             [ shift and go to state 31 ]
-  ! LESSTHAN        [ shift and go to state 32 ]
-  ! GREATERTHAN     [ shift and go to state 33 ]
-  ! EQUAL           [ shift and go to state 34 ]
-  ! AND             [ shift and go to state 35 ]
-  ! OR              [ shift and go to state 36 ]
+  ! PLUS            [ shift and go to state 26 ]
+  ! MINUS           [ shift and go to state 27 ]
+  ! TIMES           [ shift and go to state 28 ]
+  ! DIVIDE          [ shift and go to state 29 ]
+  ! DOT             [ shift and go to state 30 ]
+  ! LESSTHAN        [ shift and go to state 31 ]
+  ! GREATERTHAN     [ shift and go to state 32 ]
+  ! EQUAL           [ shift and go to state 33 ]
+  ! AND             [ shift and go to state 34 ]
+  ! OR              [ shift and go to state 35 ]
 
 
-state 50
+state 49
 
     (20) stm -> stm DOT stm .
     (16) stm -> stm . PLUS stm
@@ -1408,16 +1394,16 @@ state 50
     COMMA           reduce using rule 20 (stm -> stm DOT stm .)
     RBRACE          reduce using rule 20 (stm -> stm DOT stm .)
     ELSE            reduce using rule 20 (stm -> stm DOT stm .)
-    PLUS            shift and go to state 27
-    MINUS           shift and go to state 28
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
-    DOT             shift and go to state 31
-    LESSTHAN        shift and go to state 32
-    GREATERTHAN     shift and go to state 33
-    EQUAL           shift and go to state 34
-    AND             shift and go to state 35
-    OR              shift and go to state 36
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    DOT             shift and go to state 30
+    LESSTHAN        shift and go to state 31
+    GREATERTHAN     shift and go to state 32
+    EQUAL           shift and go to state 33
+    AND             shift and go to state 34
+    OR              shift and go to state 35
 
   ! PLUS            [ reduce using rule 20 (stm -> stm DOT stm .) ]
   ! MINUS           [ reduce using rule 20 (stm -> stm DOT stm .) ]
@@ -1431,7 +1417,7 @@ state 50
   ! OR              [ reduce using rule 20 (stm -> stm DOT stm .) ]
 
 
-state 51
+state 50
 
     (21) stm -> stm LESSTHAN stm .
     (16) stm -> stm . PLUS stm
@@ -1445,16 +1431,12 @@ state 51
     (24) stm -> stm . AND stm
     (25) stm -> stm . OR stm
 
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for TIMES resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for DOT resolved as shift
-  ! shift/reduce conflict for LESSTHAN resolved as shift
-  ! shift/reduce conflict for GREATERTHAN resolved as shift
-  ! shift/reduce conflict for EQUAL resolved as shift
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
+    DOT             reduce using rule 21 (stm -> stm LESSTHAN stm .)
+    LESSTHAN        reduce using rule 21 (stm -> stm LESSTHAN stm .)
+    GREATERTHAN     reduce using rule 21 (stm -> stm LESSTHAN stm .)
+    EQUAL           reduce using rule 21 (stm -> stm LESSTHAN stm .)
+    AND             reduce using rule 21 (stm -> stm LESSTHAN stm .)
+    OR              reduce using rule 21 (stm -> stm LESSTHAN stm .)
     $end            reduce using rule 21 (stm -> stm LESSTHAN stm .)
     RPAREN          reduce using rule 21 (stm -> stm LESSTHAN stm .)
     THEN            reduce using rule 21 (stm -> stm LESSTHAN stm .)
@@ -1462,30 +1444,24 @@ state 51
     COMMA           reduce using rule 21 (stm -> stm LESSTHAN stm .)
     RBRACE          reduce using rule 21 (stm -> stm LESSTHAN stm .)
     ELSE            reduce using rule 21 (stm -> stm LESSTHAN stm .)
-    PLUS            shift and go to state 27
-    MINUS           shift and go to state 28
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
-    DOT             shift and go to state 31
-    LESSTHAN        shift and go to state 32
-    GREATERTHAN     shift and go to state 33
-    EQUAL           shift and go to state 34
-    AND             shift and go to state 35
-    OR              shift and go to state 36
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
 
   ! PLUS            [ reduce using rule 21 (stm -> stm LESSTHAN stm .) ]
   ! MINUS           [ reduce using rule 21 (stm -> stm LESSTHAN stm .) ]
   ! TIMES           [ reduce using rule 21 (stm -> stm LESSTHAN stm .) ]
   ! DIVIDE          [ reduce using rule 21 (stm -> stm LESSTHAN stm .) ]
-  ! DOT             [ reduce using rule 21 (stm -> stm LESSTHAN stm .) ]
-  ! LESSTHAN        [ reduce using rule 21 (stm -> stm LESSTHAN stm .) ]
-  ! GREATERTHAN     [ reduce using rule 21 (stm -> stm LESSTHAN stm .) ]
-  ! EQUAL           [ reduce using rule 21 (stm -> stm LESSTHAN stm .) ]
-  ! AND             [ reduce using rule 21 (stm -> stm LESSTHAN stm .) ]
-  ! OR              [ reduce using rule 21 (stm -> stm LESSTHAN stm .) ]
+  ! DOT             [ shift and go to state 30 ]
+  ! LESSTHAN        [ shift and go to state 31 ]
+  ! GREATERTHAN     [ shift and go to state 32 ]
+  ! EQUAL           [ shift and go to state 33 ]
+  ! AND             [ shift and go to state 34 ]
+  ! OR              [ shift and go to state 35 ]
 
 
-state 52
+state 51
 
     (22) stm -> stm GREATERTHAN stm .
     (16) stm -> stm . PLUS stm
@@ -1499,16 +1475,12 @@ state 52
     (24) stm -> stm . AND stm
     (25) stm -> stm . OR stm
 
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for TIMES resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for DOT resolved as shift
-  ! shift/reduce conflict for LESSTHAN resolved as shift
-  ! shift/reduce conflict for GREATERTHAN resolved as shift
-  ! shift/reduce conflict for EQUAL resolved as shift
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
+    DOT             reduce using rule 22 (stm -> stm GREATERTHAN stm .)
+    LESSTHAN        reduce using rule 22 (stm -> stm GREATERTHAN stm .)
+    GREATERTHAN     reduce using rule 22 (stm -> stm GREATERTHAN stm .)
+    EQUAL           reduce using rule 22 (stm -> stm GREATERTHAN stm .)
+    AND             reduce using rule 22 (stm -> stm GREATERTHAN stm .)
+    OR              reduce using rule 22 (stm -> stm GREATERTHAN stm .)
     $end            reduce using rule 22 (stm -> stm GREATERTHAN stm .)
     RPAREN          reduce using rule 22 (stm -> stm GREATERTHAN stm .)
     THEN            reduce using rule 22 (stm -> stm GREATERTHAN stm .)
@@ -1516,30 +1488,24 @@ state 52
     COMMA           reduce using rule 22 (stm -> stm GREATERTHAN stm .)
     RBRACE          reduce using rule 22 (stm -> stm GREATERTHAN stm .)
     ELSE            reduce using rule 22 (stm -> stm GREATERTHAN stm .)
-    PLUS            shift and go to state 27
-    MINUS           shift and go to state 28
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
-    DOT             shift and go to state 31
-    LESSTHAN        shift and go to state 32
-    GREATERTHAN     shift and go to state 33
-    EQUAL           shift and go to state 34
-    AND             shift and go to state 35
-    OR              shift and go to state 36
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
 
   ! PLUS            [ reduce using rule 22 (stm -> stm GREATERTHAN stm .) ]
   ! MINUS           [ reduce using rule 22 (stm -> stm GREATERTHAN stm .) ]
   ! TIMES           [ reduce using rule 22 (stm -> stm GREATERTHAN stm .) ]
   ! DIVIDE          [ reduce using rule 22 (stm -> stm GREATERTHAN stm .) ]
-  ! DOT             [ reduce using rule 22 (stm -> stm GREATERTHAN stm .) ]
-  ! LESSTHAN        [ reduce using rule 22 (stm -> stm GREATERTHAN stm .) ]
-  ! GREATERTHAN     [ reduce using rule 22 (stm -> stm GREATERTHAN stm .) ]
-  ! EQUAL           [ reduce using rule 22 (stm -> stm GREATERTHAN stm .) ]
-  ! AND             [ reduce using rule 22 (stm -> stm GREATERTHAN stm .) ]
-  ! OR              [ reduce using rule 22 (stm -> stm GREATERTHAN stm .) ]
+  ! DOT             [ shift and go to state 30 ]
+  ! LESSTHAN        [ shift and go to state 31 ]
+  ! GREATERTHAN     [ shift and go to state 32 ]
+  ! EQUAL           [ shift and go to state 33 ]
+  ! AND             [ shift and go to state 34 ]
+  ! OR              [ shift and go to state 35 ]
 
 
-state 53
+state 52
 
     (23) stm -> stm EQUAL stm .
     (16) stm -> stm . PLUS stm
@@ -1553,16 +1519,12 @@ state 53
     (24) stm -> stm . AND stm
     (25) stm -> stm . OR stm
 
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for TIMES resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for DOT resolved as shift
-  ! shift/reduce conflict for LESSTHAN resolved as shift
-  ! shift/reduce conflict for GREATERTHAN resolved as shift
-  ! shift/reduce conflict for EQUAL resolved as shift
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
+    DOT             reduce using rule 23 (stm -> stm EQUAL stm .)
+    LESSTHAN        reduce using rule 23 (stm -> stm EQUAL stm .)
+    GREATERTHAN     reduce using rule 23 (stm -> stm EQUAL stm .)
+    EQUAL           reduce using rule 23 (stm -> stm EQUAL stm .)
+    AND             reduce using rule 23 (stm -> stm EQUAL stm .)
+    OR              reduce using rule 23 (stm -> stm EQUAL stm .)
     $end            reduce using rule 23 (stm -> stm EQUAL stm .)
     RPAREN          reduce using rule 23 (stm -> stm EQUAL stm .)
     THEN            reduce using rule 23 (stm -> stm EQUAL stm .)
@@ -1570,30 +1532,24 @@ state 53
     COMMA           reduce using rule 23 (stm -> stm EQUAL stm .)
     RBRACE          reduce using rule 23 (stm -> stm EQUAL stm .)
     ELSE            reduce using rule 23 (stm -> stm EQUAL stm .)
-    PLUS            shift and go to state 27
-    MINUS           shift and go to state 28
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
-    DOT             shift and go to state 31
-    LESSTHAN        shift and go to state 32
-    GREATERTHAN     shift and go to state 33
-    EQUAL           shift and go to state 34
-    AND             shift and go to state 35
-    OR              shift and go to state 36
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
 
   ! PLUS            [ reduce using rule 23 (stm -> stm EQUAL stm .) ]
   ! MINUS           [ reduce using rule 23 (stm -> stm EQUAL stm .) ]
   ! TIMES           [ reduce using rule 23 (stm -> stm EQUAL stm .) ]
   ! DIVIDE          [ reduce using rule 23 (stm -> stm EQUAL stm .) ]
-  ! DOT             [ reduce using rule 23 (stm -> stm EQUAL stm .) ]
-  ! LESSTHAN        [ reduce using rule 23 (stm -> stm EQUAL stm .) ]
-  ! GREATERTHAN     [ reduce using rule 23 (stm -> stm EQUAL stm .) ]
-  ! EQUAL           [ reduce using rule 23 (stm -> stm EQUAL stm .) ]
-  ! AND             [ reduce using rule 23 (stm -> stm EQUAL stm .) ]
-  ! OR              [ reduce using rule 23 (stm -> stm EQUAL stm .) ]
+  ! DOT             [ shift and go to state 30 ]
+  ! LESSTHAN        [ shift and go to state 31 ]
+  ! GREATERTHAN     [ shift and go to state 32 ]
+  ! EQUAL           [ shift and go to state 33 ]
+  ! AND             [ shift and go to state 34 ]
+  ! OR              [ shift and go to state 35 ]
 
 
-state 54
+state 53
 
     (24) stm -> stm AND stm .
     (16) stm -> stm . PLUS stm
@@ -1607,16 +1563,9 @@ state 54
     (24) stm -> stm . AND stm
     (25) stm -> stm . OR stm
 
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for TIMES resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for DOT resolved as shift
-  ! shift/reduce conflict for LESSTHAN resolved as shift
-  ! shift/reduce conflict for GREATERTHAN resolved as shift
-  ! shift/reduce conflict for EQUAL resolved as shift
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
+    DOT             reduce using rule 24 (stm -> stm AND stm .)
+    AND             reduce using rule 24 (stm -> stm AND stm .)
+    OR              reduce using rule 24 (stm -> stm AND stm .)
     $end            reduce using rule 24 (stm -> stm AND stm .)
     RPAREN          reduce using rule 24 (stm -> stm AND stm .)
     THEN            reduce using rule 24 (stm -> stm AND stm .)
@@ -1624,30 +1573,27 @@ state 54
     COMMA           reduce using rule 24 (stm -> stm AND stm .)
     RBRACE          reduce using rule 24 (stm -> stm AND stm .)
     ELSE            reduce using rule 24 (stm -> stm AND stm .)
-    PLUS            shift and go to state 27
-    MINUS           shift and go to state 28
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
-    DOT             shift and go to state 31
-    LESSTHAN        shift and go to state 32
-    GREATERTHAN     shift and go to state 33
-    EQUAL           shift and go to state 34
-    AND             shift and go to state 35
-    OR              shift and go to state 36
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    LESSTHAN        shift and go to state 31
+    GREATERTHAN     shift and go to state 32
+    EQUAL           shift and go to state 33
 
   ! PLUS            [ reduce using rule 24 (stm -> stm AND stm .) ]
   ! MINUS           [ reduce using rule 24 (stm -> stm AND stm .) ]
   ! TIMES           [ reduce using rule 24 (stm -> stm AND stm .) ]
   ! DIVIDE          [ reduce using rule 24 (stm -> stm AND stm .) ]
-  ! DOT             [ reduce using rule 24 (stm -> stm AND stm .) ]
   ! LESSTHAN        [ reduce using rule 24 (stm -> stm AND stm .) ]
   ! GREATERTHAN     [ reduce using rule 24 (stm -> stm AND stm .) ]
   ! EQUAL           [ reduce using rule 24 (stm -> stm AND stm .) ]
-  ! AND             [ reduce using rule 24 (stm -> stm AND stm .) ]
-  ! OR              [ reduce using rule 24 (stm -> stm AND stm .) ]
+  ! DOT             [ shift and go to state 30 ]
+  ! AND             [ shift and go to state 34 ]
+  ! OR              [ shift and go to state 35 ]
 
 
-state 55
+state 54
 
     (25) stm -> stm OR stm .
     (16) stm -> stm . PLUS stm
@@ -1661,16 +1607,8 @@ state 55
     (24) stm -> stm . AND stm
     (25) stm -> stm . OR stm
 
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for TIMES resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for DOT resolved as shift
-  ! shift/reduce conflict for LESSTHAN resolved as shift
-  ! shift/reduce conflict for GREATERTHAN resolved as shift
-  ! shift/reduce conflict for EQUAL resolved as shift
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
+    DOT             reduce using rule 25 (stm -> stm OR stm .)
+    OR              reduce using rule 25 (stm -> stm OR stm .)
     $end            reduce using rule 25 (stm -> stm OR stm .)
     RPAREN          reduce using rule 25 (stm -> stm OR stm .)
     THEN            reduce using rule 25 (stm -> stm OR stm .)
@@ -1678,48 +1616,46 @@ state 55
     COMMA           reduce using rule 25 (stm -> stm OR stm .)
     RBRACE          reduce using rule 25 (stm -> stm OR stm .)
     ELSE            reduce using rule 25 (stm -> stm OR stm .)
-    PLUS            shift and go to state 27
-    MINUS           shift and go to state 28
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
-    DOT             shift and go to state 31
-    LESSTHAN        shift and go to state 32
-    GREATERTHAN     shift and go to state 33
-    EQUAL           shift and go to state 34
-    AND             shift and go to state 35
-    OR              shift and go to state 36
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    LESSTHAN        shift and go to state 31
+    GREATERTHAN     shift and go to state 32
+    EQUAL           shift and go to state 33
+    AND             shift and go to state 34
 
   ! PLUS            [ reduce using rule 25 (stm -> stm OR stm .) ]
   ! MINUS           [ reduce using rule 25 (stm -> stm OR stm .) ]
   ! TIMES           [ reduce using rule 25 (stm -> stm OR stm .) ]
   ! DIVIDE          [ reduce using rule 25 (stm -> stm OR stm .) ]
-  ! DOT             [ reduce using rule 25 (stm -> stm OR stm .) ]
   ! LESSTHAN        [ reduce using rule 25 (stm -> stm OR stm .) ]
   ! GREATERTHAN     [ reduce using rule 25 (stm -> stm OR stm .) ]
   ! EQUAL           [ reduce using rule 25 (stm -> stm OR stm .) ]
   ! AND             [ reduce using rule 25 (stm -> stm OR stm .) ]
-  ! OR              [ reduce using rule 25 (stm -> stm OR stm .) ]
+  ! DOT             [ shift and go to state 30 ]
+  ! OR              [ shift and go to state 35 ]
 
 
-state 56
+state 55
 
     (12) args -> ID_FUNC . COMMA args
     (14) args -> ID_FUNC .
     (11) stm -> ID_FUNC . LBRACE args RBRACE
 
-    COMMA           shift and go to state 66
+    COMMA           shift and go to state 65
     RBRACE          reduce using rule 14 (args -> ID_FUNC .)
-    LBRACE          shift and go to state 37
+    LBRACE          shift and go to state 36
 
 
-state 57
+state 56
 
     (11) stm -> ID_FUNC LBRACE args . RBRACE
 
-    RBRACE          shift and go to state 67
+    RBRACE          shift and go to state 66
 
 
-state 58
+state 57
 
     (13) args -> stm . COMMA args
     (15) args -> stm .
@@ -1734,21 +1670,21 @@ state 58
     (24) stm -> stm . AND stm
     (25) stm -> stm . OR stm
 
-    COMMA           shift and go to state 68
+    COMMA           shift and go to state 67
     RBRACE          reduce using rule 15 (args -> stm .)
-    PLUS            shift and go to state 27
-    MINUS           shift and go to state 28
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
-    DOT             shift and go to state 31
-    LESSTHAN        shift and go to state 32
-    GREATERTHAN     shift and go to state 33
-    EQUAL           shift and go to state 34
-    AND             shift and go to state 35
-    OR              shift and go to state 36
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    DOT             shift and go to state 30
+    LESSTHAN        shift and go to state 31
+    GREATERTHAN     shift and go to state 32
+    EQUAL           shift and go to state 33
+    AND             shift and go to state 34
+    OR              shift and go to state 35
 
 
-state 59
+state 58
 
     (32) stm -> LPAREN stm RPAREN .
 
@@ -1771,7 +1707,7 @@ state 59
     ELSE            reduce using rule 32 (stm -> LPAREN stm RPAREN .)
 
 
-state 60
+state 59
 
     (33) stm -> IF stm THEN . stm ELSE stm END
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -1796,21 +1732,21 @@ state 60
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 69
+    stm                            shift and go to state 68
 
-state 61
+state 60
 
     (34) stm -> LET facts IN . stm END
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -1835,21 +1771,21 @@ state 61
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 70
+    stm                            shift and go to state 69
 
-state 62
+state 61
 
     (6) params -> ID_FUNC COMMA . params
     (6) params -> . ID_FUNC COMMA params
@@ -1857,19 +1793,19 @@ state 62
     (8) params -> . ID_FUNC
     (9) params -> . ID
 
-    ID_FUNC         shift and go to state 42
-    ID              shift and go to state 44
+    ID_FUNC         shift and go to state 41
+    ID              shift and go to state 43
 
-    params                         shift and go to state 71
+    params                         shift and go to state 70
 
-state 63
+state 62
 
     (5) func_def -> FUNC ID_FUNC LBRACE params RBRACE . ASSIGN stm END
 
-    ASSIGN          shift and go to state 72
+    ASSIGN          shift and go to state 71
 
 
-state 64
+state 63
 
     (7) params -> ID COMMA . params
     (6) params -> . ID_FUNC COMMA params
@@ -1877,12 +1813,12 @@ state 64
     (8) params -> . ID_FUNC
     (9) params -> . ID
 
-    ID_FUNC         shift and go to state 42
-    ID              shift and go to state 44
+    ID_FUNC         shift and go to state 41
+    ID              shift and go to state 43
 
-    params                         shift and go to state 73
+    params                         shift and go to state 72
 
-state 65
+state 64
 
     (10) assign -> VAL ID ASSIGN stm END .
 
@@ -1892,7 +1828,7 @@ state 65
     IN              reduce using rule 10 (assign -> VAL ID ASSIGN stm END .)
 
 
-state 66
+state 65
 
     (12) args -> ID_FUNC COMMA . args
     (12) args -> . ID_FUNC COMMA args
@@ -1921,22 +1857,22 @@ state 66
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 56
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 55
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    args                           shift and go to state 74
-    stm                            shift and go to state 58
+    args                           shift and go to state 73
+    stm                            shift and go to state 57
 
-state 67
+state 66
 
     (11) stm -> ID_FUNC LBRACE args RBRACE .
 
@@ -1959,7 +1895,7 @@ state 67
     ELSE            reduce using rule 11 (stm -> ID_FUNC LBRACE args RBRACE .)
 
 
-state 68
+state 67
 
     (13) args -> stm COMMA . args
     (12) args -> . ID_FUNC COMMA args
@@ -1988,22 +1924,22 @@ state 68
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 56
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 55
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 58
-    args                           shift and go to state 75
+    stm                            shift and go to state 57
+    args                           shift and go to state 74
 
-state 69
+state 68
 
     (33) stm -> IF stm THEN stm . ELSE stm END
     (16) stm -> stm . PLUS stm
@@ -2017,20 +1953,20 @@ state 69
     (24) stm -> stm . AND stm
     (25) stm -> stm . OR stm
 
-    ELSE            shift and go to state 76
-    PLUS            shift and go to state 27
-    MINUS           shift and go to state 28
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
-    DOT             shift and go to state 31
-    LESSTHAN        shift and go to state 32
-    GREATERTHAN     shift and go to state 33
-    EQUAL           shift and go to state 34
-    AND             shift and go to state 35
-    OR              shift and go to state 36
+    ELSE            shift and go to state 75
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    DOT             shift and go to state 30
+    LESSTHAN        shift and go to state 31
+    GREATERTHAN     shift and go to state 32
+    EQUAL           shift and go to state 33
+    AND             shift and go to state 34
+    OR              shift and go to state 35
 
 
-state 70
+state 69
 
     (34) stm -> LET facts IN stm . END
     (16) stm -> stm . PLUS stm
@@ -2044,27 +1980,27 @@ state 70
     (24) stm -> stm . AND stm
     (25) stm -> stm . OR stm
 
-    END             shift and go to state 77
-    PLUS            shift and go to state 27
-    MINUS           shift and go to state 28
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
-    DOT             shift and go to state 31
-    LESSTHAN        shift and go to state 32
-    GREATERTHAN     shift and go to state 33
-    EQUAL           shift and go to state 34
-    AND             shift and go to state 35
-    OR              shift and go to state 36
+    END             shift and go to state 76
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    DOT             shift and go to state 30
+    LESSTHAN        shift and go to state 31
+    GREATERTHAN     shift and go to state 32
+    EQUAL           shift and go to state 33
+    AND             shift and go to state 34
+    OR              shift and go to state 35
 
 
-state 71
+state 70
 
     (6) params -> ID_FUNC COMMA params .
 
     RBRACE          reduce using rule 6 (params -> ID_FUNC COMMA params .)
 
 
-state 72
+state 71
 
     (5) func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN . stm END
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -2089,42 +2025,42 @@ state 72
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 78
+    stm                            shift and go to state 77
 
-state 73
+state 72
 
     (7) params -> ID COMMA params .
 
     RBRACE          reduce using rule 7 (params -> ID COMMA params .)
 
 
-state 74
+state 73
 
     (12) args -> ID_FUNC COMMA args .
 
     RBRACE          reduce using rule 12 (args -> ID_FUNC COMMA args .)
 
 
-state 75
+state 74
 
     (13) args -> stm COMMA args .
 
     RBRACE          reduce using rule 13 (args -> stm COMMA args .)
 
 
-state 76
+state 75
 
     (33) stm -> IF stm THEN stm ELSE . stm END
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -2149,21 +2085,21 @@ state 76
     (34) stm -> . LET facts IN stm END
     (35) stm -> . MINUS stm
 
-    ID_FUNC         shift and go to state 14
-    STRING          shift and go to state 16
-    NUMBER          shift and go to state 17
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NIL             shift and go to state 20
-    ID              shift and go to state 21
-    LPAREN          shift and go to state 22
-    IF              shift and go to state 23
-    LET             shift and go to state 24
-    MINUS           shift and go to state 15
+    ID_FUNC         shift and go to state 13
+    STRING          shift and go to state 15
+    NUMBER          shift and go to state 16
+    TRUE            shift and go to state 17
+    FALSE           shift and go to state 18
+    NIL             shift and go to state 19
+    ID              shift and go to state 20
+    LPAREN          shift and go to state 21
+    IF              shift and go to state 22
+    LET             shift and go to state 23
+    MINUS           shift and go to state 14
 
-    stm                            shift and go to state 79
+    stm                            shift and go to state 78
 
-state 77
+state 76
 
     (34) stm -> LET facts IN stm END .
 
@@ -2186,7 +2122,7 @@ state 77
     ELSE            reduce using rule 34 (stm -> LET facts IN stm END .)
 
 
-state 78
+state 77
 
     (5) func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm . END
     (16) stm -> stm . PLUS stm
@@ -2200,20 +2136,20 @@ state 78
     (24) stm -> stm . AND stm
     (25) stm -> stm . OR stm
 
-    END             shift and go to state 80
-    PLUS            shift and go to state 27
-    MINUS           shift and go to state 28
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
-    DOT             shift and go to state 31
-    LESSTHAN        shift and go to state 32
-    GREATERTHAN     shift and go to state 33
-    EQUAL           shift and go to state 34
-    AND             shift and go to state 35
-    OR              shift and go to state 36
+    END             shift and go to state 79
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    DOT             shift and go to state 30
+    LESSTHAN        shift and go to state 31
+    GREATERTHAN     shift and go to state 32
+    EQUAL           shift and go to state 33
+    AND             shift and go to state 34
+    OR              shift and go to state 35
 
 
-state 79
+state 78
 
     (33) stm -> IF stm THEN stm ELSE stm . END
     (16) stm -> stm . PLUS stm
@@ -2227,20 +2163,20 @@ state 79
     (24) stm -> stm . AND stm
     (25) stm -> stm . OR stm
 
-    END             shift and go to state 81
-    PLUS            shift and go to state 27
-    MINUS           shift and go to state 28
-    TIMES           shift and go to state 29
-    DIVIDE          shift and go to state 30
-    DOT             shift and go to state 31
-    LESSTHAN        shift and go to state 32
-    GREATERTHAN     shift and go to state 33
-    EQUAL           shift and go to state 34
-    AND             shift and go to state 35
-    OR              shift and go to state 36
+    END             shift and go to state 80
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    DOT             shift and go to state 30
+    LESSTHAN        shift and go to state 31
+    GREATERTHAN     shift and go to state 32
+    EQUAL           shift and go to state 33
+    AND             shift and go to state 34
+    OR              shift and go to state 35
 
 
-state 80
+state 79
 
     (5) func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END .
 
@@ -2248,7 +2184,7 @@ state 80
     IN              reduce using rule 5 (func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END .)
 
 
-state 81
+state 80
 
     (33) stm -> IF stm THEN stm ELSE stm END .
 
@@ -2273,63 +2209,13 @@ state 81
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for PLUS in state 50 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 50 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 50 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 50 resolved as shift
-WARNING: shift/reduce conflict for DOT in state 50 resolved as shift
-WARNING: shift/reduce conflict for LESSTHAN in state 50 resolved as shift
-WARNING: shift/reduce conflict for GREATERTHAN in state 50 resolved as shift
-WARNING: shift/reduce conflict for EQUAL in state 50 resolved as shift
-WARNING: shift/reduce conflict for AND in state 50 resolved as shift
-WARNING: shift/reduce conflict for OR in state 50 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 51 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 51 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 51 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 51 resolved as shift
-WARNING: shift/reduce conflict for DOT in state 51 resolved as shift
-WARNING: shift/reduce conflict for LESSTHAN in state 51 resolved as shift
-WARNING: shift/reduce conflict for GREATERTHAN in state 51 resolved as shift
-WARNING: shift/reduce conflict for EQUAL in state 51 resolved as shift
-WARNING: shift/reduce conflict for AND in state 51 resolved as shift
-WARNING: shift/reduce conflict for OR in state 51 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 52 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 52 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 52 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 52 resolved as shift
-WARNING: shift/reduce conflict for DOT in state 52 resolved as shift
-WARNING: shift/reduce conflict for LESSTHAN in state 52 resolved as shift
-WARNING: shift/reduce conflict for GREATERTHAN in state 52 resolved as shift
-WARNING: shift/reduce conflict for EQUAL in state 52 resolved as shift
-WARNING: shift/reduce conflict for AND in state 52 resolved as shift
-WARNING: shift/reduce conflict for OR in state 52 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 53 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 53 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 53 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 53 resolved as shift
-WARNING: shift/reduce conflict for DOT in state 53 resolved as shift
-WARNING: shift/reduce conflict for LESSTHAN in state 53 resolved as shift
-WARNING: shift/reduce conflict for GREATERTHAN in state 53 resolved as shift
-WARNING: shift/reduce conflict for EQUAL in state 53 resolved as shift
-WARNING: shift/reduce conflict for AND in state 53 resolved as shift
-WARNING: shift/reduce conflict for OR in state 53 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 54 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 54 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 54 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 54 resolved as shift
-WARNING: shift/reduce conflict for DOT in state 54 resolved as shift
-WARNING: shift/reduce conflict for LESSTHAN in state 54 resolved as shift
-WARNING: shift/reduce conflict for GREATERTHAN in state 54 resolved as shift
-WARNING: shift/reduce conflict for EQUAL in state 54 resolved as shift
-WARNING: shift/reduce conflict for AND in state 54 resolved as shift
-WARNING: shift/reduce conflict for OR in state 54 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 55 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 55 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 55 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 55 resolved as shift
-WARNING: shift/reduce conflict for DOT in state 55 resolved as shift
-WARNING: shift/reduce conflict for LESSTHAN in state 55 resolved as shift
-WARNING: shift/reduce conflict for GREATERTHAN in state 55 resolved as shift
-WARNING: shift/reduce conflict for EQUAL in state 55 resolved as shift
-WARNING: shift/reduce conflict for AND in state 55 resolved as shift
-WARNING: shift/reduce conflict for OR in state 55 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 49 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 49 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 49 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 49 resolved as shift
+WARNING: shift/reduce conflict for DOT in state 49 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 49 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 49 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 49 resolved as shift
+WARNING: shift/reduce conflict for AND in state 49 resolved as shift
+WARNING: shift/reduce conflict for OR in state 49 resolved as shift

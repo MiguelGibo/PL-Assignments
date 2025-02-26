@@ -188,9 +188,13 @@ def p_args(p):
 #  |LPAREN stm RPAREN 
 #  |IF stm THEN stm ELSE stm END 
 #  |LET facts IN stm END 
-precedence = (('left', 'PLUS', 'MINUS'),
-              ('left', 'TIMES', 'DIVIDE'),
-              ('right', 'UMINUS'),)
+precedence = (
+   ('left', 'OR'),
+   ('left','AND'),
+   ('left','EQUAL', 'LESSTHAN','GREATERTHAN'),
+   ('left', 'PLUS', 'MINUS'),
+   ('left', 'TIMES', 'DIVIDE'),
+   ('right', 'UMINUS'),)
 
 def p_stm_binop(p):
    """
