@@ -212,7 +212,7 @@ def p_stm_bool(p):
 def p_stm_nil(p):
   "stm : NIL"
 
-def p_stm_identifier(p):
+def p_stm_id(p):
    "stm : ID"
 
 def p_stm_group(p):
