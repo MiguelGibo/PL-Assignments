@@ -194,7 +194,8 @@ precedence = (
    ('left','EQUAL', 'LESSTHAN','GREATERTHAN'),
    ('left', 'PLUS', 'MINUS'),
    ('left', 'TIMES', 'DIVIDE'),
-   ('right', 'UMINUS'),)
+   ('right', 'UMINUS'),
+   ('left', 'LBRACE', 'RBRACE'),)
 
 def p_stm_binop(p):
    """
