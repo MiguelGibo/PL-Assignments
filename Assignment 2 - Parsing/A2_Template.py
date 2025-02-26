@@ -153,7 +153,7 @@ def p_assign(p):
 # stm -> ID_FUNC LBRACE args RBRACE
 # TO-DO
 def p_id_func(p):
-   """ID_FUNC : """
+   """ID_FUNC : LBRACE args RBRACE"""
 
 # args -> ID_FUNC COMMA args 
 #  | stm COMMA args 
@@ -180,6 +180,10 @@ def p_id_func(p):
 #  |LPAREN stm RPAREN 
 #  |IF stm THEN stm ELSE stm END 
 #  |LET facts IN stm END 
+precedence = (('left', 'PLUS', 'MINUS'),
+              ('left', 'TIMES', 'DIVIDE'),
+              ('right', 'UMINUS'),)
+
 def p_stm_number(p):
   'stm : NUMBER'
 
@@ -209,7 +213,7 @@ def p_stm_nil(p):
   "stm : NIL"
 
 def p_stm_identifier(p):
-   "stm : IDENTIFIER"
+   "stm : ID"
 
 def p_stm_group(p):
    "stm : LPAREN stm RPAREN"
