@@ -28,7 +28,7 @@ reserved = {
 }
 
 tokens = [
-    'IDENTIFIER',   #a string beginning with at least one lowercase or uppercase letter followed by combinations of lowercase letters, uppercase letters, digits, underscores, a single quotation, or an empty string.
+    'ID',   #a string beginning with at least one lowercase or uppercase letter followed by combinations of lowercase letters, uppercase letters, digits, underscores, a single quotation, or an empty string.
     'NUMBER',       #a string consisting of one or more consecutive digits in the range 0-9
     'STRING',       #a double-quoted string. For example, “Hello”
     # Delimiters
@@ -60,7 +60,7 @@ def t_IDENTIFIER(t):
         t.type = reserved[t.value]
     return t
 
-def t_IDENTIFIER(t):
+def t_ID(t):
     r'[A-Z][a-zA-Z0-9_\']*'
     if t.value in reserved:
         t.type = reserved[t.value]
@@ -131,21 +131,29 @@ def p_facts_empty(p):
  
 # func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
 # TO-DO
+def p_func_def(p):
+   """func_def : FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END"""
 
 # params -> ID_FUNC COMMA params 
 #  | ID COMMA params 
 #  | ID_FUNC 
 #  | ID
 def p_params(p):
-   """params: ID_FUNC COMMA params
-          | stm COMMA args
-          | stm"""
+   """params: ID_FUNC COMMA params 
+            | ID COMMA params 
+            | ID_FUNC 
+            | ID"""
 
 # assign -> VAL ID ASSIGN stm END
 # TO-DO
+def p_assign(p):
+   "assign : VAL ID ASSIGN stm END"
+   
 
 # stm -> ID_FUNC LBRACE args RBRACE
 # TO-DO
+def p_id_func(p):
+   """ID_FUNC : """
 
 # args -> ID_FUNC COMMA args 
 #  | stm COMMA args 
