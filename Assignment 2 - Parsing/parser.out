@@ -8,9 +8,9 @@ Grammar
 
 Rule 0     S' -> global_facts
 Rule 1     global_facts -> facts exec_line
-Rule 2     facts -> func_def
+Rule 2     facts -> func_def facts
 Rule 3     facts -> assign facts
-Rule 4     facts -> empty
+Rule 4     facts -> <empty>
 Rule 5     func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
 Rule 6     params -> ID_FUNC COMMA params
 Rule 7     params -> ID COMMA params
@@ -86,9 +86,9 @@ Nonterminals, with rules where they appear
 
 args                 : 11 12 13
 assign               : 3
-empty                : 4
+empty                : 
 exec_line            : 1
-facts                : 1 3 34
+facts                : 1 2 3 34
 func_def             : 2
 global_facts         : 0
 params               : 5 6 7
@@ -100,22 +100,20 @@ state 0
 
     (0) S' -> . global_facts
     (1) global_facts -> . facts exec_line
-    (2) facts -> . func_def
+    (2) facts -> . func_def facts
     (3) facts -> . assign facts
-    (4) facts -> . empty
+    (4) facts -> .
     (5) func_def -> . FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
     (10) assign -> . VAL ID ASSIGN stm END
-    (37) empty -> .
 
-    FUNC            shift and go to state 6
-    VAL             shift and go to state 7
-    EXEC            reduce using rule 37 (empty -> .)
+    EXEC            reduce using rule 4 (facts -> .)
+    FUNC            shift and go to state 5
+    VAL             shift and go to state 6
 
     global_facts                   shift and go to state 1
     facts                          shift and go to state 2
     func_def                       shift and go to state 3
     assign                         shift and go to state 4
-    empty                          shift and go to state 5
 
 state 1
 
@@ -128,68 +126,68 @@ state 2
     (1) global_facts -> facts . exec_line
     (36) exec_line -> . EXEC stm
 
-    EXEC            shift and go to state 9
+    EXEC            shift and go to state 8
 
-    exec_line                      shift and go to state 8
+    exec_line                      shift and go to state 7
 
 state 3
 
-    (2) facts -> func_def .
+    (2) facts -> func_def . facts
+    (2) facts -> . func_def facts
+    (3) facts -> . assign facts
+    (4) facts -> .
+    (5) func_def -> . FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
+    (10) assign -> . VAL ID ASSIGN stm END
 
-    EXEC            reduce using rule 2 (facts -> func_def .)
-    IN              reduce using rule 2 (facts -> func_def .)
+    EXEC            reduce using rule 4 (facts -> .)
+    IN              reduce using rule 4 (facts -> .)
+    FUNC            shift and go to state 5
+    VAL             shift and go to state 6
 
+    func_def                       shift and go to state 3
+    facts                          shift and go to state 9
+    assign                         shift and go to state 4
 
 state 4
 
     (3) facts -> assign . facts
-    (2) facts -> . func_def
+    (2) facts -> . func_def facts
     (3) facts -> . assign facts
-    (4) facts -> . empty
+    (4) facts -> .
     (5) func_def -> . FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
     (10) assign -> . VAL ID ASSIGN stm END
-    (37) empty -> .
 
-    FUNC            shift and go to state 6
-    VAL             shift and go to state 7
-    EXEC            reduce using rule 37 (empty -> .)
-    IN              reduce using rule 37 (empty -> .)
+    EXEC            reduce using rule 4 (facts -> .)
+    IN              reduce using rule 4 (facts -> .)
+    FUNC            shift and go to state 5
+    VAL             shift and go to state 6
 
     assign                         shift and go to state 4
     facts                          shift and go to state 10
     func_def                       shift and go to state 3
-    empty                          shift and go to state 5
 
 state 5
-
-    (4) facts -> empty .
-
-    EXEC            reduce using rule 4 (facts -> empty .)
-    IN              reduce using rule 4 (facts -> empty .)
-
-
-state 6
 
     (5) func_def -> FUNC . ID_FUNC LBRACE params RBRACE ASSIGN stm END
 
     ID_FUNC         shift and go to state 11
 
 
-state 7
+state 6
 
     (10) assign -> VAL . ID ASSIGN stm END
 
     ID              shift and go to state 12
 
 
-state 8
+state 7
 
     (1) global_facts -> facts exec_line .
 
     $end            reduce using rule 1 (global_facts -> facts exec_line .)
 
 
-state 9
+state 8
 
     (36) exec_line -> EXEC . stm
     (11) stm -> . ID_FUNC LBRACE args RBRACE
@@ -227,6 +225,14 @@ state 9
     MINUS           shift and go to state 15
 
     stm                            shift and go to state 13
+
+state 9
+
+    (2) facts -> func_def facts .
+
+    EXEC            reduce using rule 2 (facts -> func_def facts .)
+    IN              reduce using rule 2 (facts -> func_def facts .)
+
 
 state 10
 
@@ -542,21 +548,19 @@ state 23
 state 24
 
     (34) stm -> LET . facts IN stm END
-    (2) facts -> . func_def
+    (2) facts -> . func_def facts
     (3) facts -> . assign facts
-    (4) facts -> . empty
+    (4) facts -> .
     (5) func_def -> . FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
     (10) assign -> . VAL ID ASSIGN stm END
-    (37) empty -> .
 
-    FUNC            shift and go to state 6
-    VAL             shift and go to state 7
-    IN              reduce using rule 37 (empty -> .)
+    IN              reduce using rule 4 (facts -> .)
+    FUNC            shift and go to state 5
+    VAL             shift and go to state 6
 
     facts                          shift and go to state 41
     func_def                       shift and go to state 3
     assign                         shift and go to state 4
-    empty                          shift and go to state 5
 
 state 25
 
@@ -2194,6 +2198,8 @@ state 80
 
     (5) func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END .
 
+    FUNC            reduce using rule 5 (func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END .)
+    VAL             reduce using rule 5 (func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END .)
     EXEC            reduce using rule 5 (func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END .)
     IN              reduce using rule 5 (func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END .)
 

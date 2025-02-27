@@ -120,13 +120,13 @@ def p_global_facts(p):
 #  | assign   facts 
 #  | empty 
 def p_facts_func(p):
-  "facts : func_def"
+  "facts : func_def facts"
 
 def p_facts_assign(p):
   "facts : assign facts"
 
 def p_facts_empty(p):
-   "facts : empty"
+   "facts :"
 
 # func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
 def p_func_def(p):
