@@ -114,7 +114,7 @@ t_OR = r'\|'
 
 # global_facts -> facts exec_line 
 def p_global_facts(p):
-  "global_facts : facts exec_line"
+  "global_facts : facts exec_line" 
 
 # facts -> func_def facts 
 #  | assign   facts 
@@ -189,9 +189,8 @@ def p_args(p):
 #  |IF stm THEN stm ELSE stm END 
 #  |LET facts IN stm END 
 precedence = (
-   ('left', 'OR'),
-   ('left','AND'),
-   ('left','EQUAL', 'LESSTHAN','GREATERTHAN'),
+   ('left', 'OR', 'AND'),
+   ('nonassoc', 'EQUAL', 'LESSTHAN', 'GREATERTHAN'),
    ('left', 'PLUS', 'MINUS'),
    ('left', 'TIMES', 'DIVIDE'),
    ('right', 'UMINUS'),
@@ -210,7 +209,7 @@ def p_stm_binop(p):
         | stm AND stm 
         | stm OR stm
    """
-
+   
 def p_stm_string(p):
   "stm : STRING"
 
@@ -271,7 +270,7 @@ def main():
 
   # Read the file
   # textFile = open('Program_Test.txt', 'r')
-  textFile = open('Assignment 2 - Parsing/Program_Test.txt', 'r')
+  textFile = open('Program_Test.txt', 'r')
   data = textFile.read()
 
   # Parse the file

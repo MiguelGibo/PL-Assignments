@@ -1626,6 +1626,7 @@ state 55
     (25) stm -> stm . OR stm
 
     DOT             reduce using rule 25 (stm -> stm OR stm .)
+    AND             reduce using rule 25 (stm -> stm OR stm .)
     OR              reduce using rule 25 (stm -> stm OR stm .)
     $end            reduce using rule 25 (stm -> stm OR stm .)
     RPAREN          reduce using rule 25 (stm -> stm OR stm .)
@@ -1641,7 +1642,6 @@ state 55
     LESSTHAN        shift and go to state 32
     GREATERTHAN     shift and go to state 33
     EQUAL           shift and go to state 34
-    AND             shift and go to state 35
 
   ! PLUS            [ reduce using rule 25 (stm -> stm OR stm .) ]
   ! MINUS           [ reduce using rule 25 (stm -> stm OR stm .) ]
@@ -1650,8 +1650,8 @@ state 55
   ! LESSTHAN        [ reduce using rule 25 (stm -> stm OR stm .) ]
   ! GREATERTHAN     [ reduce using rule 25 (stm -> stm OR stm .) ]
   ! EQUAL           [ reduce using rule 25 (stm -> stm OR stm .) ]
-  ! AND             [ reduce using rule 25 (stm -> stm OR stm .) ]
   ! DOT             [ shift and go to state 31 ]
+  ! AND             [ shift and go to state 35 ]
   ! OR              [ shift and go to state 36 ]
 
 
