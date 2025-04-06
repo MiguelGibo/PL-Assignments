@@ -253,14 +253,9 @@ def p_stm_bool(p):
  
 def p_stm_nil(p):
   "stm : NIL"
-  p[0] = {'type': "stm_value",
-          'type_value': "nil",
-          'value': None}
 
 def p_stm_id(p):
    "stm : ID"
-   p[0] = {'type':'stm_id',
-           'id': p[1]}
 
 def p_stm_group(p):
    "stm : LPAREN stm RPAREN"
@@ -268,26 +263,17 @@ def p_stm_group(p):
 
 def p_stm_if(p):
    "stm : IF stm THEN stm ELSE stm END"
-   p[0] = {'type': "stm_if",
-           'facts': p[2],
-           'stm':p[4]}
 
 def p_stm_let(p):
    "stm : LET facts IN stm END"
-   p[0] = {'type': 'stm_let',
-           'facts':p[2],
-           'stm':p[4]}
+   p[0] = {'type': 'stm_let', 'facts':p[2], 'stm':p[4]}
 
 def p_stm_uminus(p):
   "stm : MINUS stm %prec UMINUS"
-  p[0] = {'type': "stm_uminus",
-          "value": p[2]}
  
 # exec_line -> EXEC stm
 def p_exec_line(p):
    "exec_line : EXEC stm"
-   p[0] = {'type': "exec",
-           'stm': p[2]}
 
 # empty lines
 def p_empty(p):
