@@ -201,6 +201,7 @@ def p_stm_binop(p):
         | stm AND stm 
         | stm OR stm
    """
+   p[0] = {"node": "binop", "operator": p[2], "left": p[1], 'right': p[3]}
    
 def p_stm_string(p):
   "stm : STRING"
