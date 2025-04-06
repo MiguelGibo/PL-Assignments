@@ -229,6 +229,7 @@ def p_stm_if(p):
 
 def p_stm_let(p):
    "stm : LET facts IN stm END"
+   p[0] = {'type': 'stm_let', 'facts':p[2], 'stm':p[4]}
 
 def p_stm_uminus(p):
   "stm : MINUS stm %prec UMINUS"
