@@ -222,6 +222,7 @@ def p_stm_id(p):
 
 def p_stm_group(p):
    "stm : LPAREN stm RPAREN"
+   p[0] = p[2]
 
 def p_stm_if(p):
    "stm : IF stm THEN stm ELSE stm END"
