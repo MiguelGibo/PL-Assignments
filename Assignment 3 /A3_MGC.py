@@ -108,7 +108,7 @@ t_OR = r'\|'
 def p_global_facts(p):
   "global_facts : facts exec_line" 
   p[0] = {"facts": p[1],
-          "exec": p[2]}
+          "stm": p[2]}
 
 # facts -> func_def facts 
 #  | assign   facts 
@@ -128,10 +128,10 @@ def p_facts_empty(p):
 # func_def -> FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END
 def p_func_def(p):
    "func_def : FUNC ID_FUNC LBRACE params RBRACE ASSIGN stm END"
-   p[0] = {"type":'func',
-           "name": p[2],
-           "params": p[4],
-           "stm": p[7]}
+   p[0] = {p[2]: {"type":'func',
+                  "name": p[2],
+                  "params": p[4],
+                  "stm": p[7]}}
 
 # params -> ID_FUNC COMMA params 
 #  | ID COMMA params 
@@ -156,9 +156,9 @@ def p_params_ID(p):
 # assign -> VAL ID ASSIGN stm END
 def p_assign(p):
    "assign : VAL ID ASSIGN stm END"
-   p[0] = {"type": "assign",
-           "name": p[2],
-           "stm": p[4]}
+   p[0] = {p[2]: {"type": "val",
+                  "name": p[2],
+                  "stm": p[4]}}
    
 
 # stm -> ID_FUNC LBRACE args RBRACE
@@ -286,8 +286,7 @@ def p_stm_uminus(p):
 # exec_line -> EXEC stm
 def p_exec_line(p):
    "exec_line : EXEC stm"
-   p[0] = {'type': "exec",
-           'stm': p[2]}
+   p[0] = p[2]
 
 # empty lines
 def p_empty(p):
