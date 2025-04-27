@@ -59,6 +59,16 @@ def interpret(ast, env=None, funcs=None):
             return interpret(func['stm'], env=new_env, funcs=funcs)
         else:
             raise Exception(f"Undefined func {ast['id_func']}")
+    elif type == "stm_let":
+        facts = ast['facts']
+        local_env = env.copy()
+
+        for var_name, var_ast in facts.items():
+            value = interpret(var_ast['stm'], env=env, funcs=funcs)
+            local_env[var_name] = value
+
+        return interpret(ast['stm'], env=local_env, funcs=funcs)
+    
 
     
 if __name__ == "__main__":
@@ -88,39 +98,76 @@ if __name__ == "__main__":
     #     }
     # }
 
+    # ast = {
+    #     "facts": {
+    #         "MultiplyByThree": {
+    #         "type": "func",
+    #         "name": "MultiplyByThree",
+    #         "params": [
+    #             {"type": "id", "id": "n"}
+    #         ],
+    #         "stm": {
+    #             "type": "stm_op",
+    #             "op": "*",
+    #             "value1": {"type": "stm_id", "id": "n"},
+    #             "value2": {"type": "stm_value", "type_value": "number", "value": 3}
+    #         }
+    #         }
+    #     },
+    #     "stm": {
+    #         "type": "stm_func_call",
+    #         "id_func": "MultiplyByThree",
+    #         "args": [
+    #         {
+    #             "type": "stm_op",
+    #             "op": "+",
+    #             "value1": {"type": "stm_value", "type_value": "number", "value": 5},
+    #             "value2": {"type": "stm_value", "type_value": "number", "value": 1}
+    #         }
+    #         ]
+    #     }
+    # }
+
     ast = {
+        "type": "stm_let",
         "facts": {
-            "MultiplyByThree": {
-            "type": "func",
-            "name": "MultiplyByThree",
-            "params": [
-                {"type": "id", "id": "n"}
-            ],
+            "x": {
+            "type": "val",
+            "name": "x",
             "stm": {
-                "type": "stm_op",
-                "op": "*",
-                "value1": {"type": "stm_id", "id": "n"},
-                "value2": {"type": "stm_value", "type_value": "number", "value": 3}
+                "type": "stm_value",
+                "type_value": "number",
+                "value": 5
+            }
+            },
+            "y": {
+            "type": "val",
+            "name": "y",
+            "stm": {
+                "type": "stm_value",
+                "type_value": "number",
+                "value": 3
             }
             }
         },
         "stm": {
-            "type": "stm_func_call",
-            "id_func": "MultiplyByThree",
-            "args": [
-            {
-                "type": "stm_op",
-                "op": "+",
-                "value1": {"type": "stm_value", "type_value": "number", "value": 5},
-                "value2": {"type": "stm_value", "type_value": "number", "value": 1}
+            "type": "stm_op",
+            "op": "+",
+            "value1": {
+            "type": "stm_id",
+            "id": "x"
+            },
+            "value2": {
+            "type": "stm_id",
+            "id": "y"
             }
-            ]
         }
     }
 
 
-    env = {"x": 99}
 
-    result = interpret(ast['stm'], env=env, funcs=ast['facts'])
+    # env = {"x": 99}
+
+    result = interpret(ast['stm'], funcs=ast['facts'])
     # result = interpret(parser.AST["stm"], funcs=parser.AST["facts"])
     print(result)
