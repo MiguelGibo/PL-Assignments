@@ -209,7 +209,7 @@ def p_error(p):
 parser = yacc.yacc(start='global_facts')
 
 
-textFile = open('Program_Test2.txt', 'r')
-data = textFile.read()
-AST = parser.parse(data, lexer=scanner.lexer)
-# print(json.dumps(AST, indent=2))
+# textFile = open('Program_Test2.txt', 'r')
+# data = textFile.read()
+# AST = parser.parse(data, lexer=scanner.lexer)
+# # print(json.dumps(AST, indent=2))
