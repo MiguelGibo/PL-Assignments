@@ -1,5 +1,6 @@
 import ply.yacc as yacc
 import scanner
+import json
 tokens = scanner.tokens
 
 # BEGIN PARSING DEFINITION
@@ -206,3 +207,9 @@ def p_error(p):
 
 # CALL PARSING 
 parser = yacc.yacc(start='global_facts')
+
+
+textFile = open('Program_Test2.txt', 'r')
+data = textFile.read()
+AST = parser.parse(data, lexer=scanner.lexer)
+# print(json.dumps(AST, indent=2))
