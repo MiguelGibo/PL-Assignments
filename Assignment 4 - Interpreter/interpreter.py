@@ -75,6 +75,9 @@ def interpret(ast, env=None, funcs=None):
             return interpret(ast['stm_then'], env=env, funcs=funcs)
         else:
             return interpret(ast['stm_else'], env=env, funcs=funcs)
+    elif type == "stm_uminus":
+        value = interpret(ast['value'], env=env, funcs=funcs)
+        return -value
         
 
     
@@ -166,40 +169,48 @@ if __name__ == "__main__":
     # }
 
 
-    ast = {
-        "type": "stm_if",
-        "facts": {
-            "type": "stm_op",
-            "op": ">",
-            "value1": {
-            "type": "stm_value",
-            "type_value": "number",
-            "value": 7
-            },
-            "value2": {
-            "type": "stm_value",
-            "type_value": "number",
-            "value": 3
-            }
-        },
-        "stm_then": {
-            "type": "stm_value",
-            "type_value": "number",
-            "value": 1
-        },
-        "stm_else": {
-            "type": "stm_value",
-            "type_value": "number",
-            "value": 0
-        }
-    }
+    # ast = {
+    #     "type": "stm_if",
+    #     "facts": {
+    #         "type": "stm_op",
+    #         "op": ">",
+    #         "value1": {
+    #         "type": "stm_value",
+    #         "type_value": "number",
+    #         "value": 7
+    #         },
+    #         "value2": {
+    #         "type": "stm_value",
+    #         "type_value": "number",
+    #         "value": 3
+    #         }
+    #     },
+    #     "stm_then": {
+    #         "type": "stm_value",
+    #         "type_value": "number",
+    #         "value": 1
+    #     },
+    #     "stm_else": {
+    #         "type": "stm_value",
+    #         "type_value": "number",
+    #         "value": 0
+    #     }
+    # }
 
+    # ast = {
+    #     "type": "stm_uminus",
+    #     "value": {
+    #         "type": "stm_value",
+    #         "type_value": "number",
+    #         "value": 7
+    #     }
+    # }
 
 
 
     # env = {"x": 99}
 
     # result = interpret(ast['stm'], funcs=ast['facts'])
-    result = interpret(ast)
-    # result = interpret(parser.AST["stm"], funcs=parser.AST["facts"])
+    # result = interpret(ast)
+    result = interpret(parser.AST["stm"], funcs=parser.AST["facts"])
     print(result)
