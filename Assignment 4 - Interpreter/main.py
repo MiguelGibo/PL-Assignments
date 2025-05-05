@@ -6,7 +6,7 @@ def main():
     lexer = scanner.lexer
     par = parser.parser
 
-    with open("Program_Test2.txt", "r") as f:
+    with open("Program_Test1.txt", "r") as f:
         data = f.read()
 
     ast = par.parse(data, lexer=lexer)

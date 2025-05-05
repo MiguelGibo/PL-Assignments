@@ -1,0 +1,7 @@
+func SomeFunction[n] :=
+    n + "World"
+end
+
+exec SomeFunction["Hello"]
+
+

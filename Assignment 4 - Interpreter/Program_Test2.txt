@@ -1,9 +1,11 @@
 func SomeFunction[n] :=
     let
         val r := 15 end
+        val s := 2 end
     in
-        n*r
+        -((((n*r) - n)/s) + 4)
     end
 end
 
 exec SomeFunction[3]
+

@@ -1,0 +1,7 @@
+func SomeFunction[n] :=
+    n + y
+end
+
+exec SomeFunction[3]
+
+
